@@ -1,0 +1,38 @@
+<mat-card class="city-form-card">
+  <h2 *ngIf="cityId != 0">Edit City</h2>
+  <h2 *ngIf="cityId == 0">Add New City</h2>
+
+  <form (ngSubmit)="updateCity()" [formGroup]="cityForm">
+    <!-- City Name Input -->
+    <app-my-input-text
+      myControlName="name"
+      myLabel="City Name"
+      myPlaceholder="Enter city name"
+    ></app-my-input-text>
+
+    <!-- Country Dropdown -->
+    <app-my-dropdown
+      [customMessages]="{ required: 'Please select a country.' }"
+      [options]="countries"
+      myControlName="countryId"
+      myLabel="Country"
+    ></app-my-dropdown>
+
+    <!-- Region Dropdown -->
+    <app-my-dropdown
+      [customMessages]="{ required: 'Please select a region.' }"
+      [options]="regions"
+      myControlName="regionId"
+      myLabel="Region"
+    ></app-my-dropdown>
+
+    <div class="form-buttons">
+      <button [disabled]="cityForm.invalid" color="primary" mat-raised-button type="submit">
+        Save Changes
+      </button>
+      <button color="warn" mat-raised-button routerLink="/admin/cities" type="button">
+        Cancel
+      </button>
+    </div>
+  </form>
+</mat-card>

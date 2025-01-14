@@ -1,0 +1,26 @@
+<p>cities works!</p>
+
+<h2>City Management</h2>
+
+<button routerLink="./new">New city</button>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Region Name</th>
+    <th>Country Name</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let city of cities">
+    <td>{{ city.name }}</td>
+    <td>{{ city.regionName }}</td>
+    <td>{{ city.countryName }}</td>
+    <td>
+      <button (click)="editCity(city.id)">Edit</button>
+      <button (click)="openMyConfirmDialog(city.id)" color="primary" mat-raised-button>Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
