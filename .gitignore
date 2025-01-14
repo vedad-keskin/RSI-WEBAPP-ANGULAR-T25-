@@ -398,3 +398,73 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+#word
+# Privremeni Word fajlovi
+~$*
+*.tmp
+*.asd
+*.wbk
+
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# C# Build
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+history/
+*.code-workspace
+
+# WebStorm
+.idea/
+*.iml
+
+# Angular specific files
+node_modules/
+dist/
+tmp/
+temp/
+
+# Compiled output
+out-tsc/
+built/
+build/
+
+# Dependencies
+package-lock.json
+yarn.lock
+
+# Angular specific environment files
+src/environments/environment*.ts
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Angular cache and coverage
+.angular/
+coverage/
+
+# IDE backup files
+*.swp
+*.bak
+*.tmp
+*.log
+*.pid
+
+# Temporary local files
+*.log
