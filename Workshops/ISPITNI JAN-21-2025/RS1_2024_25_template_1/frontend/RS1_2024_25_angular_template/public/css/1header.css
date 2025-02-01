@@ -1,0 +1,85 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.menu ul li {
+  display: inline;
+  padding: 30px;
+  text-transform: uppercase;
+  font-size: 19px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+.ul {
+  margin: 0;
+  padding-top: 30px;
+}
+
+.logo {
+  font-size: 19px;
+  padding: 20px;
+  font-weight: bolder;
+  font-family: "Poppins", sans-serif;
+}
+
+.user-profile {
+  font-size: 22px;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.user-profile span {
+  padding-right: 10px;
+}
+
+.part1 .header {
+  background-color: rgb(249, 250, 250);
+  height: 800px;
+}
+
+.part1 .header-left {
+  padding-top: 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.part1 .header-left-title {
+  padding-top: 150px;
+  width: 25%;
+}
+
+.part1 .header-left-title h1 {
+  text-transform: uppercase;
+  font-size: 50px;
+  font-family: "Poppins", sans-serif;
+}
+
+.part1 .header-left-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.part1 .header-button {
+  padding: 20px;
+  background-color: rgb(117, 183, 191);
+  width: 40%;
+  text-align: center;
+  color: white;
+  font-size: x-large;
+
+}
+
+.part1 .header-button:first-child {
+  padding: 20px;
+  background-color: rgb(240, 149, 61);
+  width: 40%;
+  text-align: center;
+}
+
+.part1 .header-description {
+  font-size: large;
+  color: gray;
+}

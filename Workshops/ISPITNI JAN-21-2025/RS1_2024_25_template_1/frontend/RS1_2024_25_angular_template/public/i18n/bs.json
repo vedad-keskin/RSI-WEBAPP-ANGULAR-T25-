@@ -1,0 +1,16 @@
+{
+  "APP": {
+    "TITLE": "Dobrodošli u našu aplikaciju",
+    "DESCRIPTION": "Ovo je primjer lokalizacije."
+  },
+  "LOGIN": {
+    "TITLE": "Prijava",
+    "USERNAME_LABEL": "Korisničko ime:",
+    "USERNAME_PLACEHOLDER": "Unesite korisničko ime",
+    "PASSWORD_LABEL": "Šifra:",
+    "PASSWORD_PLACEHOLDER": "Unesite šifru",
+    "SAVE_LOGIN": "Sačuvaj prijavu",
+    "BUTTON": "Prijavi se"
+  }
+}
+

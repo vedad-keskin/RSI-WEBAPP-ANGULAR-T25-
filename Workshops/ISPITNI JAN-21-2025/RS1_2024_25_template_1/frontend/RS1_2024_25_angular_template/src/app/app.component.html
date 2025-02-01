@@ -1,0 +1,17 @@
+<app-my-page-progressbar></app-my-page-progressbar>
+
+<mat-form-field appearance="fill">
+  <mat-label>Jezik</mat-label>
+  <mat-select (selectionChange)="changeLanguage($event.value)" [value]="'bs'">
+    <mat-option *ngFor="let lang of languages" [value]="lang.code">
+      {{ lang.label }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div style="border: 1px solid blue; position: absolute; top:60px; bottom: 0; left: 0px; right: 0">
+  <router-outlet>
+
+  </router-outlet>
+
+</div>

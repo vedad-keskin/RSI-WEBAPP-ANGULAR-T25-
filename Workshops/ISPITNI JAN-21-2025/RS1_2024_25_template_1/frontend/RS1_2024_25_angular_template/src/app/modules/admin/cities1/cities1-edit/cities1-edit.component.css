@@ -1,0 +1,81 @@
+/* Center the form within the page */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f7f9fc;
+}
+
+/* Title styling */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Form field container */
+div {
+  margin-bottom: 15px;
+}
+
+/* Label styling */
+label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Input and Select styling */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Disabled input styling */
+input[disabled],
+select[disabled] {
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.2s ease;
+}
+
+/* Save button styling */
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Cancel button styling */
+button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
+
+button[type="button"]:hover {
+  background-color: #5a6268;
+}
