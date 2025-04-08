@@ -1,0 +1,22 @@
+<mat-card class="student-form-card">
+  <h2 *ngIf="studentId != 0">Edit Student</h2>
+  <h2 *ngIf="studentId == 0">Add New Student</h2>
+
+  <form (ngSubmit)="saveStudent()" [formGroup]="studentForm">
+    <app-my-input-text myControlName="firstName" myLabel="First Name" myPlaceholder="Enter first name"></app-my-input-text>
+    <app-my-input-text myControlName="lastName" myLabel="Last Name" myPlaceholder="Enter last name"></app-my-input-text>
+    <app-my-input-text myControlName="studentNumber" myLabel="Student Number" myPlaceholder="Enter student number"></app-my-input-text>
+
+    <app-my-dropdown [options]="genders" myControlName="gender" myLabel="Gender"></app-my-dropdown>
+    <app-my-dropdown [options]="municipalities" myControlName="birthMunicipalityId" myLabel="Birth Municipality"></app-my-dropdown>
+    <app-my-dropdown [options]="municipalities" myControlName="permanentMunicipalityId" myLabel="Permanent Municipality"></app-my-dropdown>
+
+    <app-my-input-text myControlName="contactMobilePhone" myLabel="Mobile Phone" myPlaceholder="Enter mobile phone"></app-my-input-text>
+    <app-my-input-text myControlName="contactPrivateEmail" myLabel="Email" myPlaceholder="Enter email"></app-my-input-text>
+
+    <div class="form-buttons">
+      <button [disabled]="studentForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
+      <button color="warn" mat-raised-button routerLink="/admin/students" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>

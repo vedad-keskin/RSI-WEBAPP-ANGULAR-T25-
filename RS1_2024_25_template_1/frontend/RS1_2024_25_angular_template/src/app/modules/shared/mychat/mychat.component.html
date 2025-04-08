@@ -1,0 +1,31 @@
+<div class="chat-container">
+  <div class="user-list">
+    <h3>Users</h3>
+    <input [(ngModel)]="searchTerm" placeholder="Search users" />
+    <select [(ngModel)]="userType">
+      <option value="">All</option>
+      <option value="professor">Professors</option>
+      <option value="student">Students</option>
+    </select>
+    <button (click)="fetchUsers()">Search</button>
+
+    <ul>
+      <li *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="user === selectedUser">
+        {{ user.firstName }} {{ user.lastName }} ({{ user.type }})
+      </li>
+    </ul>
+  </div>
+
+  <div class="chat-box" *ngIf="selectedUser">
+    <h3>Chat with {{ selectedUser.firstName }} {{ selectedUser.lastName }}</h3>
+    <div class="messages">
+      <div *ngFor="let message of messages">
+        <b>{{ message.from }}:</b> {{ message.content }}
+      </div>
+    </div>
+    <div class="new-message">
+      <input [(ngModel)]="newMessage" placeholder="Type a message..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>

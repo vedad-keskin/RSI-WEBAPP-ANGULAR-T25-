@@ -1,0 +1,59 @@
+<mat-card class="city-form-card">
+  <h2 *ngIf="cityId!=0">Edit City</h2>
+  <h2 *ngIf="cityId==0">Add New City</h2>
+
+  <form (ngSubmit)="updateCity()" [formGroup]="cityForm">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>City Name</mat-label>
+      <input formControlName="name" matInput required/>
+      <mat-error *ngIf="cityForm.get('name')?.invalid && cityForm.get('name')?.touched">
+        <!-- Dinamičko prikazivanje grešaka -->
+        <ng-container *ngIf="cityForm.get('name')?.errors as errors">
+          <small *ngIf="errors['required']">City name is required.</small>
+          <small *ngIf="errors['minlength']">
+            Minimum {{ errors['minlength'].requiredLength }} characters required.
+          </small>
+          <small *ngIf="errors['maxlength']">
+            Maximum {{ errors['maxlength'].requiredLength }} characters allowed.
+          </small>
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="countryId" required>
+        <mat-option *ngFor="let country of countries" [value]="country.id">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="cityForm.get('countryId')?.invalid && cityForm.get('countryId')?.touched">
+        <ng-container *ngIf="cityForm.get('countryId')?.errors as errors">
+          <small *ngIf="errors['required']">Country is required.</small>
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Region Dropdown -->
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Region</mat-label>
+      <mat-select formControlName="regionId" required>
+        <mat-option *ngFor="let region of regions" [value]="region.id">
+          {{ region.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="cityForm.get('regionId')?.touched && cityForm.get('regionId')?.errors">
+        <span *ngIf="cityForm.get('regionId')?.errors?.['required']">Region is required.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-buttons">
+      <button [disabled]="cityForm.invalid" color="primary" mat-raised-button type="submit">
+        Save Changes
+      </button>
+      <button color="warn" mat-raised-button routerLink="/admin/cities" type="button">
+        Cancel
+      </button>
+    </div>
+  </form>
+</mat-card>

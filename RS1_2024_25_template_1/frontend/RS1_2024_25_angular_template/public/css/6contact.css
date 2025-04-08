@@ -1,0 +1,108 @@
+
+
+.part6 #contact-form {
+    margin: 20px 0;
+    margin-top: 0;
+    padding-top: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.part6 #contact-form .container2 {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.part6 #contact-form .item {
+    width: 50%;
+}
+
+.part6 #contact-form .item:nth-of-type(2n+2) {
+    margin-left: 20px;
+}
+
+.part6 #contact-form label {
+    display: block;
+    width: 100%;
+    color: white;
+    padding: 5px 0;
+    font-family: Comic Sans MS;
+}
+
+.part6 #contact-form input {
+    font-family: Comic Sans MS;
+    width: 100%;
+    padding: 7px;
+}
+
+.part6 #contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    height: 100px;
+}
+
+.part6 #contact-form .button {
+    width: 150px;
+    background-color: red;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    box-shadow: 3px 3px 10px 1px rgba(227, 227, 227, 0.7);
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.part6 #contacts {
+    margin-top: 40px;
+}
+
+.part6 #contacts .contacts-container2 {
+    width: 80%;
+}
+
+.part6 #contacts .contacts-title {
+    color: #3E3F40;
+    border-bottom: 1px solid #D3D3D3;
+    margin-top: 20px;
+}
+
+.part6 #contacts i {
+    position: relative;
+    /**/
+    top: 20px;
+    /**/
+    color: #00B2A9;
+    font-weight: bold;
+}
+
+.part6 #contacts p {
+    padding-left: 25px;
+    /**/
+}
+
+.part6 .item-container {
+    width: 100%;
+    display: flex;
+}
+
+.part6 .contact {
+    background-color: rgb(26, 46, 53);
+    background-size: cover;
+    padding-top: 20px;
+}
+
+.part6 .conact {
+    background-color: rgb(26, 46, 53);
+    background-size: cover;
+    padding-top: 20px;
+}
+
+.part6 .booking-header {
+    text-align: center;
+    color: white;
+}
+
+.part6 h1{
+    color: white;
+}

@@ -1,0 +1,67 @@
+
+.part4 .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.part4 .styled-table thead tr {
+    background-color: rgb(117, 183, 191);
+    color: #ffffff;
+    text-align: left;
+}
+
+.part4 .styled-table th,
+.part4 .styled-table td {
+    padding: 12px 15px;
+}
+
+.part4 .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.part4 .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.part4 .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid  rgb(117, 183, 191);
+}
+
+.part4 .styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: rgb(117, 183, 191);
+}
+
+.part4 .styled-table button {
+    background-color: white;
+    color: rgb(117, 183, 191);
+    font-weight: bold;
+    border: 2px solid rgb(117, 183, 191);
+    box-shadow: 3px 3px 10px 1px rgba(227, 227, 227, 0.7);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.part4 .travel-header {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: rgb(83, 81, 81);
+}
+
+.part4 .travel-header p {
+    font-style: italic;
+}
+
+.part4 .travel-tabel {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
