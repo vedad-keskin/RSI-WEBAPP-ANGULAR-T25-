@@ -1,5 +1,8 @@
 <h2>Student Management</h2>
 
+
+<button color="primary" mat-raised-button (click)="toggleDeleted()">Prikaži/Sakrij obrisane</button>
+
 <button color="primary" mat-raised-button routerLink="./new">New Student</button>
 
 <div class="search-container">
@@ -55,7 +58,8 @@
 
   <!-- Table Header and Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [class.obrisano]="row.isDeleted && showDeleted"></mat-row>
+
 </table>
 
 <mat-paginator [length]="students.length" [pageSizeOptions]="[5, 10, 20]" [pageSize]="5"

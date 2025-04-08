@@ -26,6 +26,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   private searchSubject: Subject<string> = new Subject();
 
+  showDeleted: any = false;
+
   constructor(
     private studentGetService: StudentGetAllEndpointService,
     private studentDeleteService: StudentDeleteEndpointService,
@@ -67,7 +69,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       pageSize: pageSize
     }).subscribe({
       next: (data) => {
-        this.dataSource = new MatTableDataSource<StudentGetAllResponse>(data.dataItems);
+        this.dataSource = new MatTableDataSource<StudentGetAllResponse>(
+          this.showDeleted ? data.dataItems : data.dataItems.filter((s) => !s.isDeleted)
+        );
         this.paginator.length = data.totalCount;
       },
       error: (err) => {
@@ -121,5 +125,10 @@ export class StudentsComponent implements OnInit, AfterViewInit {
         message: 'Implementirajte matičnu knjigu?'
       }
     });
+  }
+
+  toggleDeleted(): void {
+    this.showDeleted = !this.showDeleted;
+    this.fetchStudents();
   }
 }
