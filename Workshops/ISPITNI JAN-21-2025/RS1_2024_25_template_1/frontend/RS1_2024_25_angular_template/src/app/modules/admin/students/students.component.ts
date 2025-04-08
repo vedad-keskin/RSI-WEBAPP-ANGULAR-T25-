@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, Subject} from 'rxjs';
 import { MyDialogConfirmComponent } from '../../shared/dialogs/my-dialog-confirm/my-dialog-confirm.component';
 import {MySnackbarHelperService} from '../../shared/snackbars/my-snackbar-helper.service';
 import {MyDialogSimpleComponent} from '../../shared/dialogs/my-dialog-simple/my-dialog-simple.component';
 import {StudentRestoreEndpointService} from '../../../endpoints/student-endpoints/student-restore-endpoint.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-students',
@@ -46,7 +47,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   initSearchListener(): void {
     this.searchSubject.pipe(
       debounceTime(300),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      map(q => q.toLowerCase()), // convert to lowercase and trim whitespace
+      filter(q => q.length > 3)         // only proceed if string is longer than 3 characters
     ).subscribe((filterValue) => {
       this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
