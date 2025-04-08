@@ -10,7 +10,7 @@ namespace RS1_2024_25.API.Endpoints.StudentEndpoints;
 
 // Endpoint za vraćanje liste studenata s filtriranjem i paginacijom
 [Route("students")]
-[MyAuthorization(isAdmin: true, isManager: false)]
+//[MyAuthorization(isAdmin: true, isManager: false)]
 public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsync
     .WithRequest<StudentGetAllRequest>
     .WithResult<MyPagedList<StudentGetAllResponse>>

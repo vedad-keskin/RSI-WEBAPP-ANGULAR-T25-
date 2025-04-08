@@ -37,7 +37,7 @@ public class ApplicationDbContext(DbContextOptions options, IHttpContextAccessor
     public IQueryable<Student> Students => Set<Student>().Where(e => e.TenantId == CurrentTenantIdThrowIfFail);
 
     #region METHODS
-    public int? _CurrentTenantId = null;
+    public int? _CurrentTenantId = 1;
 
     public int CurrentTenantIdThrowIfFail
     {

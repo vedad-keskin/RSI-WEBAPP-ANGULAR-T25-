@@ -70,7 +70,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     }).subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource<StudentGetAllResponse>(
+
           this.showDeleted ? data.dataItems : data.dataItems.filter((s) => !s.isDeleted)
+
         );
         this.paginator.length = data.totalCount;
       },
