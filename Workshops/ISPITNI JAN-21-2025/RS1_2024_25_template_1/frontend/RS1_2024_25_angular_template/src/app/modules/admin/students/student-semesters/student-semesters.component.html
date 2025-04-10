@@ -6,3 +6,91 @@
 
 
 
+<div *ngIf="semesters.length === 0" class="no-data">
+  <p>No semesters to display.</p>
+</div>
+
+<table [dataSource]="semesters!" class="mat-elevation-z8" mat-table matSort>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.id }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="academicYear">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Academic Year</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.academicYear.description }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="yearOfStudy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Year of Study</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.yearOfStudy }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="renewal">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Renewal</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.renewal }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="winterSemester">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Winter Semester</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.date | date:'yyyy-MM-dd' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="recordedBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Recorded By</mat-header-cell>
+    <mat-cell *matCellDef="let semester">{{ semester.recordedBy.email }}</mat-cell>
+  </ng-container>
+
+
+
+  <!-- Table Header and Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
+
+
+<button  mat-raised-button (click)="openNewSemesterDialog(studentId)">ENROLL IN WINTER SEMESTER</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Academic Year</th>
+    <th>Year of Study</th>
+    <th>Winter Semester</th>
+    <th>Recorded By</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let x of semesters">
+    <td>{{ x.id }}</td>
+    <td>{{ x.academicYear.description }}</td>
+    <td>{{ x.yearOfStudy }}</td>
+    <td>{{ x.date }}</td>
+    <td>{{ x.recordedBy.email }}</td>
+
+  </tr>
+  </tbody>
+</table>
+-->

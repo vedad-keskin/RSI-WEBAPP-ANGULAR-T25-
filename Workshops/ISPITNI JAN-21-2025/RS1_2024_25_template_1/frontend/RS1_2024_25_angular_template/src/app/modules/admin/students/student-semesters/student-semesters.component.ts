@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
   StudentGetByIdEndpointService, StudentGetByIdResponse
 } from '../../../../endpoints/student-endpoints/student-get-by-id-endpoint.service';
@@ -23,13 +23,14 @@ export class StudentSemestersComponent implements OnInit {
   // student:any;
   student: StudentGetByIdResponse | null = null;
   semesters: SemesterGetAllResponse[] = [];
-
+  displayedColumns: string[] = ['id', 'academicYear' ,'yearOfStudy', 'renewal', 'winterSemester', 'recordedBy'];
 
 
   constructor(
     private route: ActivatedRoute,
     private studentGetByIdEndpointService:StudentGetByIdEndpointService,
-    private semesterGetAllEndpoint:SemesterGetAllEndpoint
+    private semesterGetAllEndpoint:SemesterGetAllEndpoint,
+    private router:Router
   ) {
     this.studentId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -65,6 +66,12 @@ export class StudentSemestersComponent implements OnInit {
         next: (data) => (this.semesters = data),
         error: (err) => console.error('Error fetching semesters:', err)
       });
+
+  }
+
+  openNewSemesterDialog(studentId: any) {
+
+    this.router.navigate(['/admin/semesters/new/', studentId]);
 
   }
 }
