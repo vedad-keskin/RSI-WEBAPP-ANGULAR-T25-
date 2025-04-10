@@ -125,13 +125,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   openStudentSemesters(id:number) {
-    this.dialog.open(MyDialogSimpleComponent, {
-      width: '350px',
-      data: {
-        title: 'Ispitni zadatak',
-        message: 'Implementirajte matičnu knjigu?'
-      }
-    });
+
+    this.router.navigate(['/admin/semesters', id]);
+
   }
 
   toggleDeleted(): void {
