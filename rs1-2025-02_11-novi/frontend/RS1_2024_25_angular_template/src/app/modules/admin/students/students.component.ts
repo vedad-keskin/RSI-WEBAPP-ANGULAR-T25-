@@ -24,7 +24,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   students: StudentGetAllResponse[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  private searchSubject: Subject<string> = new Subject();
 
   constructor(
     private studentGetService: StudentGetAllEndpointService,
@@ -35,17 +34,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.initSearchListener();
     this.fetchStudents();
-  }
-
-  initSearchListener(): void {
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged()
-    ).subscribe((filterValue) => {
-      this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
-    });
   }
 
   ngAfterViewInit(): void {
@@ -57,7 +46,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.searchSubject.next(filterValue);
+    this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
   }
 
   fetchStudents(filter: string = '', page: number = 1, pageSize: number = 5): void {
