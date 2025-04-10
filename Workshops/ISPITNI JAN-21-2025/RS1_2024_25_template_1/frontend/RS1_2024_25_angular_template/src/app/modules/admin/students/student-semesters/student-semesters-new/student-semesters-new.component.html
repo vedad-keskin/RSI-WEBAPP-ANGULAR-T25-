@@ -1,1 +1,26 @@
-<p>student-semesters-new works!</p>
+<mat-card class="semester-form-card">
+
+
+  <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
+
+    <mat-form-field >
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <app-my-input-text myControlName="yearOfStudy" myLabel="Year of Study" myPlaceholder="Enter year of study"></app-my-input-text>
+    <app-my-input-text myControlName="price" myLabel="Price" myPlaceholder="Enter price"></app-my-input-text>
+
+    <mat-checkbox formControlName="renewal">Renewal</mat-checkbox>
+
+ <!--   <app-my-dropdown [options]="genders" myControlName="gender" myLabel="Gender"></app-my-dropdown> -->
+
+
+    <div class="form-buttons">
+      <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
+      <button color="warn" mat-raised-button routerLink="/admin/semesters/{{studentId}}" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>
