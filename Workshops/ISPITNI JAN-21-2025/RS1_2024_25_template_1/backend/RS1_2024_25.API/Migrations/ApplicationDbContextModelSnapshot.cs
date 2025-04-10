@@ -396,6 +396,57 @@ namespace RS1_2024_25.API.Migrations
                     b.ToTable("Professors", (string)null);
                 });
 
+            modelBuilder.Entity("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic.Semester", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("AcademicYearId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RecordedById")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Renewal")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearOfStudy")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AcademicYearId");
+
+                    b.HasIndex("RecordedById");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Semesters", (string)null);
+                });
+
             modelBuilder.Entity("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic.Student", b =>
                 {
                     b.Property<int>("ID")
@@ -578,6 +629,40 @@ namespace RS1_2024_25.API.Migrations
                     b.Navigation("Tenant");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic.Semester", b =>
+                {
+                    b.HasOne("RS1_2024_25.API.Data.Models.SharedTables.AcademicYear", "AcademicYear")
+                        .WithMany()
+                        .HasForeignKey("AcademicYearId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul1_Auth.MyAppUser", "RecordedBy")
+                        .WithMany()
+                        .HasForeignKey("RecordedById")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RS1_2024_25.API.Data.Models.SharedTables.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("AcademicYear");
+
+                    b.Navigation("RecordedBy");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic.Student", b =>

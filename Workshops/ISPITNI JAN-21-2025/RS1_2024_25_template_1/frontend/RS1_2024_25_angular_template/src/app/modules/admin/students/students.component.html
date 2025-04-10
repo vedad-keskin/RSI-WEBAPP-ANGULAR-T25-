@@ -54,7 +54,11 @@
         Restore
       </button>
 
-      <button (click)="openStudentSemesters(student.id)" color="warn" mat-button>
+
+
+
+      <!-- <button (click)="openStudentSemesters(student.id)" color="warn" mat-button> -->
+      <button routerLink="/admin/semesters/{{student.id}}" color="warn" mat-button>
         <mat-icon>description</mat-icon>
         Registry
       </button>

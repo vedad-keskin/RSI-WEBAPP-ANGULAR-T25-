@@ -3,6 +3,12 @@ import {ActivatedRoute} from '@angular/router';
 import {
   StudentGetByIdEndpointService, StudentGetByIdResponse
 } from '../../../../endpoints/student-endpoints/student-get-by-id-endpoint.service';
+import {CityGetAll1Response} from '../../../../endpoints/city-endpoints/city-get-all1-endpoint.service';
+import {
+  SemesterGetAllEndpoint,
+  SemesterGetAllResponse
+} from '../../../../endpoints/semester-endpoints/semester-get-all-endpoint.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-semesters',
@@ -16,10 +22,14 @@ export class StudentSemestersComponent implements OnInit {
   studentId: any;
   // student:any;
   student: StudentGetByIdResponse | null = null;
+  semesters: SemesterGetAllResponse[] = [];
+
+
 
   constructor(
     private route: ActivatedRoute,
-    private studentGetByIdEndpointService:StudentGetByIdEndpointService
+    private studentGetByIdEndpointService:StudentGetByIdEndpointService,
+    private semesterGetAllEndpoint:SemesterGetAllEndpoint
   ) {
     this.studentId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -27,6 +37,8 @@ export class StudentSemestersComponent implements OnInit {
   ngOnInit(): void {
 
     this.fetchStudent();
+    this.fetchSemesters();
+
 
     }
 
@@ -42,6 +54,17 @@ export class StudentSemestersComponent implements OnInit {
       error: (error) => console.error('Error loading city data', error),
     });
 
+
+  }
+
+  private fetchSemesters() {
+
+    this.semesterGetAllEndpoint.handleAsync(this.studentId)
+      .pipe(tap(x => console.log("fetched: " + x.length)))
+      .subscribe({
+        next: (data) => (this.semesters = data),
+        error: (err) => console.error('Error fetching semesters:', err)
+      });
 
   }
 }
