@@ -11,16 +11,16 @@ public class Semester : TenantSpecificTable
 
 
     [ForeignKey(nameof(Student))]
-    public int StudentId { get; set; } // FK na korisnika
+    public int StudentId { get; set; } // FK na studenta
     public Student Student { get; set; } // Referenca na korisnički entitet
 
     [ForeignKey(nameof(AcademicYear))]
-    public int AcademicYearId { get; set; } // FK na korisnika
-    public AcademicYear AcademicYear { get; set; } // Referenca na korisnički entitet
+    public int AcademicYearId { get; set; } // FK na akademsku godinu
+    public AcademicYear AcademicYear { get; set; } 
 
     [ForeignKey(nameof(RecordedBy))]
-    public int? RecordedById { get; set; } // FK na korisnika
-    public MyAppUser? RecordedBy { get; set; } // Referenca na korisnički entitet
+    public int? RecordedById { get; set; } // FK na usera koji evidentira
+    public MyAppUser? RecordedBy { get; set; } 
 
     public int YearOfStudy { get; set; }
     public bool Renewal { get; set; }
