@@ -9,6 +9,10 @@ import {
   SemesterUpdateOrInsertEndpoint, SemesterUpdateOrInsertRequest
 } from '../../../../../endpoints/semester-endpoints/semester-update-or-insert-endpoint.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {
+  SemesterGetAllEndpoint,
+  SemesterGetAllResponse
+} from '../../../../../endpoints/semester-endpoints/semester-get-all-endpoint.service';
 
 @Component({
   selector: 'app-student-semesters-new',
@@ -24,18 +28,22 @@ export class StudentSemestersNewComponent implements OnInit {
   academicYears: AcademicYearGetAllResponse[] = [];
   loggedInUserId:any;
 
+  semesters: SemesterGetAllResponse[] = [];
+
+
   constructor(
     private route: ActivatedRoute,
     private router:Router,
     private fb: FormBuilder,
     private academicYearGetAllEndpoint:AcademicYearGetAllEndpoint,
     private semesterUpdateOrInsertEndpoint:SemesterUpdateOrInsertEndpoint,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private semesterGetAllEndpoint:SemesterGetAllEndpoint
   ) {
     this.studentId = Number(this.route.snapshot.paramMap.get('id'));
 
     const authData = localStorage.getItem('my-auth-token');
-    
+
     if (authData) {
       const parsedAuth = JSON.parse(authData);
       this.loggedInUserId = parsedAuth.myAuthInfo?.userId ?? 0;
@@ -56,16 +64,24 @@ export class StudentSemestersNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        this.fetchAcademicYears();
-    }
+    this.fetchAcademicYears();
+    this.fetchSemesters();
+
+    // Disable the fields that should not be changed
+    this.semesterForm.get('price')?.disable();
+    this.semesterForm.get('renewal')?.disable();
+  }
 
   saveSemester() {
-
     if (this.semesterForm.invalid) return;
 
     const semesterData: SemesterUpdateOrInsertRequest = {
       ...this.semesterForm.value,
+      price: this.semesterForm.get('price')?.value,  // Manually add price when it's disabled
+      renewal: this.semesterForm.get('renewal')?.value  // Manually add renewal when it's disabled
     };
+
+    console.log(semesterData);  // Check if 'price' and 'renewal' are included
 
     this.semesterUpdateOrInsertEndpoint.handleAsync(semesterData).subscribe({
       next: () => {
@@ -86,6 +102,37 @@ export class StudentSemestersNewComponent implements OnInit {
       .pipe(tap(x => console.log("fetched: " + x.length)))
       .subscribe({
         next: (data) => (this.academicYears = data),
+        error: (err) => console.error('Error fetching semesters:', err)
+      });
+  }
+
+  onValueChange($event: any) {
+
+    const YearOfStudy : number = parseInt($event.target.value,10); // decimalni 10, binarni 2, 8 octal
+
+      if(this.semesters.some((x:any) => x.yearOfStudy == YearOfStudy)){
+
+        // SET PRICE TO 400
+        // SET RENEWAL TO TRUE
+        this.semesterForm.patchValue({
+          price: 400,
+          renewal: true,
+        });
+
+      }else{
+        this.semesterForm.patchValue({
+          price: 1800,
+          renewal: false,
+        });
+      }
+
+  }
+
+  private fetchSemesters() {
+    this.semesterGetAllEndpoint.handleAsync(this.studentId)
+      .pipe(tap(x => console.log("fetched: " + x.length)))
+      .subscribe({
+        next: (data) => (this.semesters = data),
         error: (err) => console.error('Error fetching semesters:', err)
       });
   }

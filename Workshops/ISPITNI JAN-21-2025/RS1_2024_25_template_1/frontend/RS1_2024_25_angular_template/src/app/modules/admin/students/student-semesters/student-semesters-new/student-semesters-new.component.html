@@ -13,16 +13,31 @@
     </mat-form-field>
 
     <!-- Year of study field -->
-    <app-my-input-text myControlName="yearOfStudy" myLabel="Year of Study" myPlaceholder="Enter year of study"></app-my-input-text>
+    <app-my-input-text
+      myControlName="yearOfStudy"
+      myLabel="Year of Study"
+      myPlaceholder="Enter year of study"
+      (input)="onValueChange($event)"
+    ></app-my-input-text>
 
     <!-- Academic Years Dropdown field -->
-    <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="Academic Year"></app-my-dropdown>
+    <app-my-dropdown
+      [options]="academicYears"
+      myControlName="academicYearId"
+      myLabel="Academic Year"
+    ></app-my-dropdown>
 
     <!-- Price field -->
-    <app-my-input-text myControlName="price" myLabel="Price" myPlaceholder="Enter price"></app-my-input-text>
+    <app-my-input-text
+      myControlName="price"
+      myLabel="Price"
+      myPlaceholder="Enter price"
+    ></app-my-input-text>
 
     <!-- Renewal Checkbox field -->
-    <mat-checkbox formControlName="renewal">Renewal</mat-checkbox>
+    <mat-checkbox
+      formControlName="renewal"
+    >Renewal</mat-checkbox>
 
 
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MyBaseFormControlComponent} from '../my-base-form-control-component';
 import {ControlContainer} from '@angular/forms';
 
@@ -25,6 +25,8 @@ export class MyInputTextComponent extends MyBaseFormControlComponent implements 
 
   @Input() override customMessages: Record<string, string> = {}; // Dodano!
   @Input() override myControlName: string = "";
+  @Output() valueChanged = new EventEmitter<any>();
+
 
   constructor(protected override controlContainer: ControlContainer) {
     super(controlContainer);
