@@ -1,0 +1,52 @@
+
+.part2 .search {
+    display: flex;
+    background-color: rgb(117, 183, 191);
+    height: 600px;
+    justify-content: space-around;
+    padding-top: 100px;
+}
+
+.part2 .search-description {
+    padding-top: 150px;
+    width: 30%;
+}
+
+.part2 .search-description p {
+    font-size: large;
+    color: silver;
+}
+
+.part2 .search-description h1 {
+    color: white;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+}
+
+.part2 .search-right {
+    display: flex;
+}
+
+.part2 .search-input {
+    width: 400px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.part2 .search-button {
+    background-color: rgb(240, 149, 61);
+    text-align: center;
+    width: 150px;
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+
+.part2 .search-button p {
+    color: white;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    padding-top: 10px;
+}

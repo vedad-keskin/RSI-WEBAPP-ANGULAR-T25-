@@ -1,0 +1,20 @@
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>{{ myLabel }}</mat-label>
+  <input
+    [formControl]="formControl"
+    [id]="myId"
+    [placeholder]="myPlaceholder"
+    [type]="myType"
+    matInput
+  />
+
+  <!-- Dinamičko prikazivanje grešaka -->
+  <mat-error *ngIf="formControl.invalid && (formControl.touched || formControl.dirty)">
+    <ng-container *ngIf="formControl.errors as errors">
+      <ng-container *ngFor="let errorKey of getErrorKeys(errors)">
+        <small>{{ getErrorMessage(errorKey, errors[errorKey]) }}</small>
+      </ng-container>
+    </ng-container>
+
+  </mat-error>
+</mat-form-field>
