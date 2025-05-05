@@ -1,0 +1,35 @@
+<p>public-layout works!</p>
+<link href="/css/shared-style.css" rel="stylesheet"/>
+<link href="/css/1header.css" rel="stylesheet"/>
+<link href="/css/2search.css" rel="stylesheet"/>
+<link href="/css/3offers.css" rel="stylesheet"/>
+<link href="/css/4details.css" rel="stylesheet"/>
+<link href="/css/5cities.css" rel="stylesheet"/>
+<link href="/css/6contact.css" rel="stylesheet"/>
+<link href="/dialog/fit-dialog.css" rel="stylesheet"/>
+
+<div class="nav">
+
+  <div class="logo">
+    TRAVELS
+  </div>
+  <div class="menu">
+    <ul>
+      <li routerLink="/public/home" routerLinkActive="active">Home</li>
+      <li routerLink="/public/about" routerLinkActive="active">About</li>
+      <li routerLink="/public/travels" routerLinkActive="active">Travels</li>
+      <li routerLink="/public/blog" routerLinkActive="active">Blog</li>
+      <li routerLink="/public/contact-us" routerLinkActive="active">Contact us</li>
+    </ul>
+
+
+  </div>
+  <div class="user-profile" routerLink="/auth/login">
+    <span>Login</span>
+    <img src="images/user.png">
+  </div>
+</div>
+
+<div style="border: 1px solid red">
+  <router-outlet></router-outlet>
+</div>

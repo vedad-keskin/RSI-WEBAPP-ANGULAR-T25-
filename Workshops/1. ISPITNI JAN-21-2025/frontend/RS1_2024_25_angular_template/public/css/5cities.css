@@ -1,0 +1,95 @@
+
+.propeller {
+    width: 70px;
+    margin-top: 10px;
+    margin-left: 10px;
+    animation: rotacija linear;
+    animation-iteration-count: infinite;
+}
+
+.city-card {
+    border-radius: 15px;
+    border-top: 4px solid rgb(28, 187, 180);
+    border-left: 4px solid rgb(28, 187, 180);
+    width: 22%;
+    -webkit-box-shadow: 10px 10px 5px -8px rgba(199, 185, 199, 1);
+    -moz-box-shadow: 10px 10px 5px -8px rgba(199, 185, 199, 1);
+    box-shadow: 10px 10px 5px -8px rgba(199, 185, 199, 1);
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.city-name {
+    font-family: 'Brush Script MT', cursive;
+    text-align: center;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: rgb(83, 81, 81);
+}
+
+.city-card-right {
+    position: relative;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 50px
+}
+
+.temp {
+    text-transform: uppercase;
+    font-style: italic;
+    font-family: Lucida Handwriting;
+    font-size: small;
+    color: rgb(28, 187, 180);
+}
+
+#svg-div {
+    margin-left: 20px;
+}
+
+.wind-vel {
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: small;
+    font-family: Lucida Handwriting;
+    color: rgb(28, 187, 180);
+}
+
+.city-card-wrapper {
+    position: relative;
+    top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.city-name {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.city-weather{
+    background-color: rgba(210, 205, 205, 0.236);
+    padding-bottom: 50px;
+}
+.city-weather-wrapper{
+    padding-top: 50px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.city-weather-header p{
+    font-style: italic;
+}
+
+@keyframes rotacija {
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}

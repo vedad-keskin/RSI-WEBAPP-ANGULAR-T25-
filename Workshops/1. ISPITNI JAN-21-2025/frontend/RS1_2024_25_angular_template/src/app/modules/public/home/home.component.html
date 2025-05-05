@@ -1,0 +1,225 @@
+
+
+<div class="part1">
+  <div class="header">
+
+    <div class="header-left">
+      <div class="header-left-title">
+        <h1>For all your travel needs</h1>
+        <p class="header-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus quidem maiores
+          perspiciatis, illo maxime voluptatem a itaque suscipit.</p>
+        <div class="header-left-buttons">
+          <div class="header-button">Contact Us</div>
+          <div class="header-button">About Us</div>
+        </div>
+      </div>
+      <div class="header-right-image">
+        <img src="images/header-img.png">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="part2">
+  <h1>2 Search</h1>
+  <div class="search">
+    <div class="search-img">
+      <img src="images/about-img.png">
+    </div>
+    <div class="search-description">
+      <h1>Search for you travel</h1>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus quidem maiores perspiciatis, illo maxime
+        voluptatem a itaque suscipit.</p>
+      <div class="search-right">
+        <input placeholder="search city name" class="search-input" [(ngModel)]="traziVrijednost">
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="part3">
+  <div class="travel-destinations">
+
+  </div>
+  <section id="best-offers">
+    <h1>3 Best offers</h1>
+    <p>Here is a list of best travels that our company offers</p>
+    <div id="destinacije" class="offers-container">
+
+      <article *ngFor="let x of globalPodaci; let b = index" class="offer">
+        <div class="akcija">Polazak za <br>{{x.naredniPolazak.zaDana}} dana</div>
+        <div class="offer-image" style="background-image: url('{{x.slikaUrl}}');" ></div>
+        <div class="offer-details">
+          <div class="offer-destination">{{x.drzava}}</div>
+          <div class="offer-description">{{x.opisPonude}} {{x.opisPonude}}</div>
+        </div>
+
+        <div class="offer-footer">
+          <div class="offer-info">
+            <div class="offer-price">{{x.naredniPolazak.cijenaPoOsobiEur}} €
+            </div>
+            <div class="offer-free">
+                                    <span>
+                                        Slobodno mjesta: {{x.naredniPolazak.countSlobodnoMjesta}}
+                                    </span>
+            </div>
+          </div>
+          <div class="ponuda-dugme" (click)="K2_odaberiDestinaciju(x)">K2 Pogledaj</div>
+        </div>
+      </article>
+
+
+    </div>
+  </section>
+</div>
+
+<div class="part4">
+  <div class="travel-tabel">
+    <div class="separator">
+      <div class="line-black"></div>
+      <div class="line-green"></div>
+      <div class="line-black"></div>
+    </div>
+    <div class="travel-header">
+      <h1>4 Our Travel Plans</h1>
+      <p>
+        Vero justo sed sed vero clita amet. Et justo vero sea diam elitr amet
+        ipsum eos ipsum clita duo sed. Sed vero sea diam erat vero elitr sit
+        clita.
+      </p>
+      <div class="separator">
+        <div class="line-black"></div>
+        <div class="line-green"></div>
+        <div class="line-black"></div>
+      </div>
+    </div>
+    <table class="styled-table">
+      <thead class="travel-table-header">
+      <tr>
+        <th>Putovanje ID</th>
+        <th>Polazak</th>
+        <th>Povratak</th>
+        <th>Broj dana</th>
+        <th>Broj slobodnih mjesta</th>
+        <th>Cijena</th>
+        <th>Odaberi</th>
+      </tr>
+      </thead>
+      <tbody id="putovanjaTabela" *ngIf="odabranaDrzava">
+      <tr *ngFor="let o of odabranaDrzava.planiranaPutovanja;let rbPolaska = index">
+        <td>ID {{o.idPutovanje}}</td>
+        <td>{{o.datumPol}}</td>
+        <td>{{o.datumPov}}</td>
+        <td>{{o.countSlobodnoMjesta}}</td>
+        <td>{{o.brojDana}}</td>
+        <td>{{o.cijenaPoOsobiEur}} €</td>
+        <td><button (click)="K3_OdaberiPutovanje(o)">K3 Odaberi putovanje</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="part5">
+  <div class="city-weather">
+    <div class="city-weather-wrapper">
+      <div class="city-weather-header">
+        <h1>5 Our Cities Itinerary</h1>
+        <p>
+          Vero justo sed sed vero clita amet. Et justo vero sea diam elitr
+          amet ipsum eos ipsum clita duo sed. Sed vero sea diam erat vero
+          elitr sit clita.
+        </p>
+        <div class="separator">
+          <div class="line-black"></div>
+          <div class="line-green"></div>
+          <div class="line-black"></div>
+        </div>
+      </div>
+      <div class="city-card-wrapper" id="vrijemeGradova">
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="part6">
+  <div class="contact">
+
+    <div class="booking-header">
+      <h1>6 Book your destination</h1>
+
+    </div>
+    <div id="contact-form">
+      <div class="container2">
+        <div class="item">
+          <label for="drzavaText">Drzava</label>
+          <input disabled id="drzavaText" type="text" [value]="odabranaDrzava!=null?odabranaDrzava.drzava:''"/>
+        </div>
+        <div class="item">
+          <label for="datumPolaska">Datum polaska</label>
+          <input disabled id="datumPolaska" type="text"/>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="container2">
+        <div class="item">
+          <label class="bold" for="brojGostiju">Broj gostiju</label>
+          <input id="brojGostiju" max="5" min="1" oninput="promjenaBrojaGostiju()" type="number" value="1"/>
+        </div>
+        <div class="item">
+          <label for="cijenaPoGostu">Cijena po gostu</label>
+          <input disabled id="cijenaPoGostu" type="text"/>
+        </div>
+      </div>
+
+      <div class="container2">
+        <div class="item"></div>
+        <div class="item">
+          <label class="bold" for="ukupnaCijena">Sumarno za sve goste</label>
+          <input disabled id="ukupnaCijena" type="text"/>
+        </div>
+      </div>
+      <hr/>
+      <div id="gosti"></div>
+      <br/>
+      <br/>
+      <div class="container3">
+        <div class="item-container">
+          <div class="item">
+            <label for="brojPasosa">Broj pasoša</label>
+            <input id="brojPasosa" oninput="provjeriBrojPasosa()"/>
+          </div>
+          <div class="item">
+            <label for="datumVazenjaPasosa">Datum važenja pasoša</label>
+            <input id="datumVazenjaPasosa" oninput="provjeriPasos()"/>
+          </div>
+        </div>
+        <div class="item-container">
+          <div class="item">
+            <label for="email">E-mail</label>
+            <input id="email" oninput="provjeriEmail()"/>
+          </div>
+          <div class="item">
+            <label for="phone">Broj telefona</label>
+            <input id="phone" oninput="provjeriTelefon()"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="button" onclick="posalji()">Send</button>
+  </div>
+</div>
+
+
+<script src="dialog/fit-dialog.js"></script>
+<script src="js/cities/arrow.js"></script>
+<script src="js/cities/propeler.js"></script>
+<script src="js/cities/termometar.js"></script>
+<script src="js/script.js"></script>
+
