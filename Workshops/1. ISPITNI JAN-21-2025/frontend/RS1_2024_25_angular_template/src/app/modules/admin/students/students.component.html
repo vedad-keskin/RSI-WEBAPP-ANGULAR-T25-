@@ -47,6 +47,11 @@
         Delete
       </button>
 
+      <button (click)="openMyConfirmDialogforRestore(student.id)" color="warn" mat-button>
+        <mat-icon>restore</mat-icon>
+        Restore
+      </button>
+
       <button (click)="openStudentSemesters(student.id)" color="warn" mat-button>
         <mat-icon>description</mat-icon>
         Registry
