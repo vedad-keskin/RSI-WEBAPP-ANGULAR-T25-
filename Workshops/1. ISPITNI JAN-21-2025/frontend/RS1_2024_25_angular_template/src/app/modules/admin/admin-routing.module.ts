@@ -17,6 +17,10 @@ import {
 } from './rxjs-subject-message-example/rxjs-subject-message-example.component';
 import {StudentsComponent} from './students/students.component';
 import {StudentEditComponent} from './students/student-edit/student-edit.component';
+import {StudentSemestersComponent} from './students/student-semesters/student-semesters.component';
+import {
+  StudentSemestersNewComponent
+} from './students/student-semesters/student-semesters-new/student-semesters-new.component';
 
 //komentar
 const routes: Routes = [
@@ -41,6 +45,11 @@ const routes: Routes = [
       {path: 'order', component: ReservationComponent},
       {path: 'chat', component: MyChatComponent},
       {path: 'rxjs-subject-message-example', component: RxjsSubjectMessageExampleComponent},
+
+      // Dodane dvije komponente koje ce se korisiti u nastavku ispitnog
+      {path: 'students/semesters/:id', component: StudentSemestersComponent},
+      {path: 'students/semesters/new/:id', component: StudentSemestersNewComponent},
+
       {path: '**', component: AdminErrorPageComponent} // Default ruta
     ]
   },

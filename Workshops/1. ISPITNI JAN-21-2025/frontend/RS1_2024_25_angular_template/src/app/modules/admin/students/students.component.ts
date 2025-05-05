@@ -131,13 +131,24 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   openStudentSemesters(id:number) {
-    this.dialog.open(MyDialogSimpleComponent, {
+
+    const dialogRef = this.dialog.open(MyDialogConfirmComponent, {
       width: '350px',
       data: {
-        title: 'Ispitni zadatak',
-        message: 'Implementirajte matičnu knjigu?'
+        title: 'Confirm Navigation',
+        message: 'Are you sure you want to navigate this registry?'
       }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('User confirmed navigation');
+        this.navigateToSemesters(id);
+      } else {
+        console.log('User cancelled navigation');
+      }
+    });
+
   }
 
   toggleDeleted() {
@@ -180,6 +191,12 @@ export class StudentsComponent implements OnInit, AfterViewInit {
         console.error('Error deleting student:', err);
       }
     });
+
+  }
+
+  private navigateToSemesters(id: number) {
+
+    this.router.navigate(['/admin/students/semesters/', id]);
 
   }
 }
