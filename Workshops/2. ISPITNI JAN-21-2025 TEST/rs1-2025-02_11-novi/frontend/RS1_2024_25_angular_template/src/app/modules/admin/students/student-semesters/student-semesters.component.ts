@@ -5,7 +5,10 @@ import {
 } from '../../../../endpoints/student-endpoints/student-get-by-id-endpoint.service';
 import {MySnackbarHelperService} from '../../../shared/snackbars/my-snackbar-helper.service';
 import {MatDialog} from '@angular/material/dialog';
-import {SemesterGetAllEndpoint} from '../../../../endpoints/semester-endpoints/semester-get-all-endpoint.service';
+import {
+  SemesterGetAllEndpoint,
+  SemestersGetAllResponse
+} from '../../../../endpoints/semester-endpoints/semester-get-all-endpoint.service';
 
 @Component({
   selector: 'app-student-semesters',
@@ -22,6 +25,8 @@ export class StudentSemestersComponent implements OnInit {
   student: any;
   //student: StudentGetByIdResponse | null = null;
   semesters:any;
+
+  displayedColumns: string[] = ['id', 'academicYear' ,'yearOfStudy', 'renewal', 'winterSemester', 'recordedBy'];
 
 
   constructor(
@@ -72,6 +77,10 @@ export class StudentSemestersComponent implements OnInit {
         console.error('Error fetching semesters:', err);
       }
     });
+
+  }
+
+  openNewSemesterDialog(studentId: number) {
 
   }
 }
