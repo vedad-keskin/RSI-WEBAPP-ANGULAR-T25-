@@ -1,0 +1,19 @@
+<p>admin-layout works!</p>
+
+<nav>
+  <ul>
+    <li><a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a></li>
+<!--    <li><a routerLink="/admin/cities1" routerLinkActive="active">Cities1 (ngModel)</a></li>
+       <li><a routerLink="/admin/cities2" routerLinkActive="active">Cities2 (Reactive forms+Angular material)</a></li>-->
+        <li><a routerLink="/admin/cities3" routerLinkActive="active">Cities</a></li>
+        <li><a routerLink="/admin/students" routerLinkActive="active">Students</a></li>
+        <li><a routerLink="/admin/chat" routerLinkActive="active">Chat</a></li>
+        <li><a routerLink="/admin/rxjs-subject-message-example" routerLinkActive="active">rxjs subject message example</a>
+        </li>
+        <li><a routerLink="/auth/logout">Logout</a></li>
+      </ul>
+    </nav>
+
+    <div style="border: 1px solid red">
+      <router-outlet></router-outlet>
+    </div>

@@ -1,0 +1,23 @@
+<div class="login-container">
+  <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+  <form (ngSubmit)="onLogin()" [formGroup]="form">
+    <app-my-input-text
+      [myLabel]="'LOGIN.USERNAME_LABEL' | translate "
+      [myPlaceholder]="'LOGIN.USERNAME_PLACEHOLDER' | translate"
+      myControlName="email"
+    ></app-my-input-text>
+
+
+    <app-my-input-text
+      [myLabel]="'LOGIN.PASSWORD_LABEL' | translate"
+      [myPlaceholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
+      [myType]="MyInputTextType.Password"
+      myControlName="password"
+    ></app-my-input-text>
+
+    <mat-slide-toggle>{{ 'LOGIN.SAVE_LOGIN' | translate }}</mat-slide-toggle>
+
+    <button class="login-button" color="primary" type="submit">{{ 'LOGIN.BUTTON' | translate }}</button>
+
+  </form>
+</div>
