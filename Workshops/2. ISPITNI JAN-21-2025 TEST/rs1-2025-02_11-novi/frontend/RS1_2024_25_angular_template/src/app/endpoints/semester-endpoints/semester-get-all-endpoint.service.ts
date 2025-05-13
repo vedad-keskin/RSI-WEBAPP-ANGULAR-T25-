@@ -1,25 +1,28 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {MyConfig} from '../../my-config';
-import {MyBaseEndpointAsync} from '../../helper/my-base-endpoint-async.interface';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MyConfig } from '../../my-config';
+import { MyBaseEndpointAsync } from '../../helper/my-base-endpoint-async.interface';
 
-export interface CityGetAll1Response {
+export interface SemestersGetAllResponse {
   id: number;
-  name: string;
-  countryName: string;
-  regionName: string;
+  academicYearDescription: string;
+  recordedByName: string;
+  yearOfStudy: number;
+  renewal: boolean;
+  date: Date;
+  price: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class CityGetAll1EndpointService implements MyBaseEndpointAsync<void, CityGetAll1Response[]> {
-  private apiUrl = `${MyConfig.api_address}/cities/all`;
+export class SemesterGetAllEndpoint
+  implements MyBaseEndpointAsync<number, SemestersGetAllResponse> {
+  private apiUrl = `${MyConfig.api_address}/semesters`;
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  handleAsync() {
-    return this.httpClient.get<CityGetAll1Response[]>(`${this.apiUrl}`);
+  handleAsync(id: number) {
+    return this.httpClient.get<SemestersGetAllResponse>(`${this.apiUrl}/${id}`);
   }
 }
