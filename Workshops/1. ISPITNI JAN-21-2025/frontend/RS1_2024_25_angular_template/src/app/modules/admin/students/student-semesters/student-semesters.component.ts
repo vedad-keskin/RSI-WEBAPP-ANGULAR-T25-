@@ -5,6 +5,9 @@ import {
 } from '../../../../endpoints/student-endpoints/student-get-by-id-endpoint.service';
 import {MySnackbarHelperService} from '../../../shared/snackbars/my-snackbar-helper.service';
 import {MatDialog} from '@angular/material/dialog';
+import {
+  SemesterGetByStudentIdEndpoint
+} from '../../../../endpoints/semester-endpoints/semester-get-by-student-id-endpoint.service';
 
 @Component({
   selector: 'app-student-semesters',
@@ -20,6 +23,8 @@ export class StudentSemestersComponent implements OnInit{
   // student:any; // LAKSI NACIN
   student:StudentGetByIdResponse | null = null;
 
+  semesters:any;
+  displayedColumns: string[] = ['id', 'academicYear', 'yearOfStudy', 'winterSemester', "recordedBy"];
 
 
   constructor(
@@ -29,6 +34,7 @@ export class StudentSemestersComponent implements OnInit{
     private snackbar: MySnackbarHelperService,
     private router: Router,
     private dialog: MatDialog,
+    private semesterGetByStudentIdEndpoint:SemesterGetByStudentIdEndpoint
   ) {
 
     this.studentId = this.route.snapshot.params['id'];
@@ -37,7 +43,7 @@ export class StudentSemestersComponent implements OnInit{
   ngOnInit(): void {
 
     this.fetchStudent();
-
+    this.fetchSemesters();
     }
 
 
@@ -55,6 +61,22 @@ export class StudentSemestersComponent implements OnInit{
       }
     });
 
+
+  }
+
+  private fetchSemesters() {
+
+    this.semesterGetByStudentIdEndpoint.handleAsync(this.studentId).subscribe({
+      next: (data) => {
+
+        this.semesters = data;
+
+      },
+      error: (err) => {
+        this.snackbar.showMessage('Error fetching semesters. Please try again.', 5000);
+        console.error('Error fetching semesters:', err);
+      }
+    });
 
   }
 }
