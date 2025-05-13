@@ -64,7 +64,7 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db) : MyEndpoin
 
     public class SemesterUpdateOrInsertRequest
     {
-        public int ID { get; set; }
+        public int? ID { get; set; }
         public int StudentId { get; set; }
         public int AcademicYearId { get; set; }
         public int? RecordedById { get; set; }
