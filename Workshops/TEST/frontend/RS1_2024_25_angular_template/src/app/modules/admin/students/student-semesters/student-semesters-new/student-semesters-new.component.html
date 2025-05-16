@@ -13,7 +13,7 @@
     </mat-form-field>
 
 
-    <app-my-input-text myControlName="yearOfStudy" myLabel="Godina studija" myPlaceholder="Enter year of study"></app-my-input-text>
+    <app-my-input-text myControlName="yearOfStudy" myLabel="Godina studija" (input)="YearChanged($event)" myPlaceholder="Enter year of study"></app-my-input-text>
     <app-my-dropdown [options]="academyYears" myControlName="academicYearId" myLabel="Academic Years"></app-my-dropdown>
     <app-my-input-text myControlName="price" myLabel="Cijena studija" myPlaceholder="Enter price"></app-my-input-text>
 
