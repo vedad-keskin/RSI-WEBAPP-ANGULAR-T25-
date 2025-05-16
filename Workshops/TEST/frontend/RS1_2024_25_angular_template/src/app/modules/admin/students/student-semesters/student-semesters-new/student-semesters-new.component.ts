@@ -62,9 +62,9 @@ export class StudentSemestersNewComponent implements OnInit {
         recordedById: [this.loggedInUserId, [Validators.required]],
         academicYearId: [1, [Validators.required]],
         date:[new Date(), [Validators.required]],
-        yearOfStudy: [null, [Validators.required]],
-        price: [null, [Validators.required, Validators.min(50), Validators.max(2000)   ]],
-        renewal: [false, [Validators.required]],
+        yearOfStudy: [null, [Validators.required ]],
+        price: [{value: null, disabled: true}, [Validators.required, Validators.min(50), Validators.max(2000)]],
+        renewal: [{value: false, disabled: true}, [Validators.required]],
     });
 
   }
@@ -112,12 +112,14 @@ export class StudentSemestersNewComponent implements OnInit {
 
     const semesterData: SemesterUpdateOrInsertRequest = {
       ...this.semesterForm.value,
+      price: this.semesterForm.get('price')?.value,  // Manually add price when it's disabled
+      renewal: this.semesterForm.get('renewal')?.value  // Manually add renewal when it's disabled
     };
 
     this.semesterUpdateOrInsertService.handleAsync(semesterData).subscribe({
       next: () => {
         this.snackbar.showMessage('Semester added succesfully.', 5000);
-        //this.router.navigate(['/admin/students/semesters/', this.studentId]);
+        this.router.navigate(['/admin/students/semesters/', this.studentId]);
       },
       error: (error) => {
         this.snackbar.showMessage('Error adding semester. Please try again.', 5000);
