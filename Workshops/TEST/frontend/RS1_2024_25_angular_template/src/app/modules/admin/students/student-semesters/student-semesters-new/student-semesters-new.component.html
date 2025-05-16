@@ -1,1 +1,27 @@
 <h3>Novi semestar za {{student.firstName}} {{student.lastName}}</h3>
+
+
+<mat-card class="student-form-card">
+
+  <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
+
+    <mat-form-field >
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <app-my-input-text myControlName="yearOfStudy" myLabel="Godina studija" myPlaceholder="Enter year of study"></app-my-input-text>
+    <app-my-dropdown [options]="academyYears" myControlName="academicYearId" myLabel="Academic Years"></app-my-dropdown>
+    <app-my-input-text myControlName="price" myLabel="Cijena studija" myPlaceholder="Enter price"></app-my-input-text>
+
+    <mat-checkbox formControlName="renewal">Obnova godine</mat-checkbox>
+
+    <div class="form-buttons">
+      <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
+      <button color="warn" mat-raised-button routerLink="/admin/students" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>
