@@ -1,0 +1,49 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+}
+
+.user-list {
+  width: 25%;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
+.user-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.user-list li.selected {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.new-message {
+  display: flex;
+  gap: 10px;
+}
+
+.new-message input {
+  flex: 1;
+  padding: 5px;
+}
