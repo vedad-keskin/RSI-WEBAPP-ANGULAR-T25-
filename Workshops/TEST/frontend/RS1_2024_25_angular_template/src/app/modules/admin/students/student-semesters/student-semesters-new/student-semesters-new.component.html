@@ -21,7 +21,7 @@
 
     <div class="form-buttons">
       <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
-      <button color="warn" mat-raised-button routerLink="/admin/students" type="button">Cancel</button>
+      <button color="warn" mat-raised-button routerLink="/admin/students/semesters/{{studentId}}" type="button">Cancel</button>
     </div>
   </form>
 </mat-card>

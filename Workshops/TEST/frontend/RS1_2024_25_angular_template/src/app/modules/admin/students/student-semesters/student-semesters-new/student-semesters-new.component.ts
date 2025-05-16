@@ -29,6 +29,8 @@ export class StudentSemestersNewComponent implements OnInit {
   studentId:number = 0;
   student:any;
   academyYears:any;
+  loggedInUserId:any;
+
 
   semesterForm: FormGroup;
 
@@ -43,6 +45,13 @@ export class StudentSemestersNewComponent implements OnInit {
               ) {
     this.studentId = route.snapshot.params['id'];
 
+    const authData = localStorage.getItem('my-auth-token');
+
+    if (authData) {
+      const JSONAuth = JSON.parse(authData);
+      this.loggedInUserId = JSONAuth.myAuthInfo?.userId ?? 0;
+    }
+
     this.semesterForm = this.fb.group({
         studentId: [this.studentId, [Validators.required]],
         recordedById: [1, [Validators.required]],
@@ -50,7 +59,7 @@ export class StudentSemestersNewComponent implements OnInit {
         date:[new Date(), [Validators.required]],
         yearOfStudy: [1, [Validators.required]],
         price: [null, [Validators.required, Validators.min(50), Validators.max(2000)   ]],
-        renewal: [null, [Validators.required]],
+        renewal: [false, [Validators.required]],
     });
 
   }
@@ -102,7 +111,7 @@ export class StudentSemestersNewComponent implements OnInit {
     this.semesterUpdateOrInsertService.handleAsync(semesterData).subscribe({
       next: () => {
         this.snackbar.showMessage('Semester added succesfully.', 5000);
-        this.router.navigate(['/admin/students/semesters/', this.studentId]);
+        //this.router.navigate(['/admin/students/semesters/', this.studentId]);
       },
       error: (error) => {
         this.snackbar.showMessage('Error adding semester. Please try again.', 5000);
