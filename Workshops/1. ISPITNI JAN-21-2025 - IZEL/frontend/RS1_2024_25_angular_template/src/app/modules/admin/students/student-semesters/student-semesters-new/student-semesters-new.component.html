@@ -6,6 +6,15 @@
   <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
 
 
+    <!-- Date custom field -->
+    <mat-form-field >
+      <mat-label>Datum</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
     <app-my-input-text myControlName="yearOfStudy" myLabel="Godina studija" myPlaceholder="Enter Year of Study"></app-my-input-text>
     <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="Ak godina"></app-my-dropdown>
     <app-my-input-text myControlName="price" myLabel="Cijena školarine" myPlaceholder="Enter Price"></app-my-input-text>
