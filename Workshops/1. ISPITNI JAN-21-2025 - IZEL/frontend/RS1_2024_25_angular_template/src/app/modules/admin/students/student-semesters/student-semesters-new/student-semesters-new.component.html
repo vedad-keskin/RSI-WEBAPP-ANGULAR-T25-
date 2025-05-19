@@ -1,1 +1,20 @@
-<p>student-semesters-new works!</p>
+<h3>Novi semestar za {{student?.firstName ?? "Nema imena"}} {{student?.lastName ?? "Nema prezimena"}}</h3>
+
+
+<mat-card class="student-form-card">
+
+  <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
+
+
+    <app-my-input-text myControlName="yearOfStudy" myLabel="Godina studija" myPlaceholder="Enter Year of Study"></app-my-input-text>
+    <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="Ak godina"></app-my-dropdown>
+    <app-my-input-text myControlName="price" myLabel="Cijena školarine" myPlaceholder="Enter Price"></app-my-input-text>
+    <mat-checkbox formControlName="renewal">Obnova godine</mat-checkbox>
+
+
+    <div class="form-buttons">
+      <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
+      <button color="warn" mat-raised-button routerLink="/admin/students/semesters/{{studentId}}" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>

@@ -79,4 +79,11 @@ export class StudentSemestersComponent implements OnInit{
     });
 
   }
+
+  goToNewSemester() {
+
+    this.router.navigate(['/admin/students/semesters/new/', this.studentId]);
+
+
+  }
 }
