@@ -107,9 +107,10 @@ export class StudentSemestersNewComponent implements OnInit {
     if (this.semesterForm.invalid) return;
 
     const semestarData: SemesterUpdateOrInsertRequest = {
-      ...this.semesterForm.value,
-      price : this.semesterForm.get('price')?.value,
-      renewal : this.semesterForm.get('renewal')?.value,
+      ...this.semesterForm.getRawValue(), /// salje sve i disabled i enabled
+      //...this.semesterForm.value,
+      //price : this.semesterForm.get('price')?.value,
+      //renewal : this.semesterForm.get('renewal')?.value,
     };
 
     this.semesterUpdateOrInsertService.handleAsync(semestarData).subscribe({
