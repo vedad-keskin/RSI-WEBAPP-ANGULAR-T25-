@@ -1,0 +1,6 @@
+:host {
+  display: block; /* Osigurava da host element zauzima prostor */
+  width: 100%;
+  min-height: 100px;
+  background-color: #ffc7e7;
+}

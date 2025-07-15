@@ -1,0 +1,107 @@
+.part3 .offer {
+    width: 30%;
+    position: relative;
+    border: 1px solid;
+    margin-bottom: 20px;
+}
+
+.part3 .offer-details {
+    justify-content: space-between;
+    padding: 10px;
+    padding-bottom: 0px;
+    margin: 20px 0;
+    margin-bottom: 0px;
+    text-align: left;
+    position: relative;
+}
+
+.part3 .offer-description {
+    clear: both;
+}
+
+.part3 .offer-footer {
+    padding: 10px;
+    margin: 0px 0;
+    position: relative;
+}
+
+.part3 .offer-destination,
+.part3 .offer-dana,
+.part3 .broj-mjesta {
+    float: left;
+    font-size: large;
+    font-weight: bold;
+}
+
+.part3 .offer-destination {
+    font-size: x-large;
+}
+
+.part3 .offer-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.part3 .offer-free {
+    color: coral;
+    font-size: large;
+    font-weight: 800;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.part3 .offer-price {
+    font-size: x-large;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-weight: 700;
+    background-color: rgb(28, 187, 180);
+    color: white;
+}
+
+.part3 .akcija {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    font-size: large;
+    background-color: rgba(255, 0, 0, 40%);
+    color: white;
+    width: 120px;
+    rotate: 45deg;
+    text-align: center;
+}
+
+.part3 .ponuda-dugme {
+    background-color: rgb(26, 46, 53);
+    padding: 10px;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.part3 #best-offers p {
+    font-style: italic;
+    color: gray;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.part3 .offers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.part3 .offer-image {
+    height: 300px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
