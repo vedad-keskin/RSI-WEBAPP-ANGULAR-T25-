@@ -45,6 +45,11 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db) : MyEndpoin
             }
         }
 
+        if (db.Semesters.ToList().Exists(x=> x.StudentId == request.StudentId && x.AcademicYearId == request.AcademicYearId))
+        {
+            return BadRequest("Academic year already exists");
+        }
+
         // Set common properties for both insert and update
         semester.AcademicYearId = request.AcademicYearId;
         semester.StudentId = request.StudentId;
