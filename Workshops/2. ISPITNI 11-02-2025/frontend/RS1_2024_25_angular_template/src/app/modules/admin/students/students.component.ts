@@ -23,7 +23,7 @@ import {map} from 'rxjs/operators';
 export class StudentsComponent implements OnInit, AfterViewInit {
 
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'studentNumber', 'actions'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'studentNumber','timeDeleted', 'actions'];
   dataSource: MatTableDataSource<StudentGetAllResponse> = new MatTableDataSource<StudentGetAllResponse>();
   students: StudentGetAllResponse[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
