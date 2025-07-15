@@ -12,7 +12,7 @@ import { MyDialogConfirmComponent } from '../../shared/dialogs/my-dialog-confirm
 import {MySnackbarHelperService} from '../../shared/snackbars/my-snackbar-helper.service';
 import {MyDialogSimpleComponent} from '../../shared/dialogs/my-dialog-simple/my-dialog-simple.component';
 import {StudentRestoreEndpointService} from '../../../endpoints/student-endpoints/student-restore-endpoint.service';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-students',
@@ -55,6 +55,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       distinctUntilChanged(), // Emittuje samo ako je vrijednost promijenjena,
       map(q=> q.toLowerCase()),
       filter(q => q.length > 3),
+      tap(q => console.log(`Record number: ${this.dataSource.data.length}`))
+
+
     ).subscribe((filterValue) => {
       this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
