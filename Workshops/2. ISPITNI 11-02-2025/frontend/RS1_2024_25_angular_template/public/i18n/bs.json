@@ -11,6 +11,14 @@
     "PASSWORD_PLACEHOLDER": "Unesite šifru",
     "SAVE_LOGIN": "Sačuvaj prijavu",
     "BUTTON": "Prijavi se"
+  },
+  "NEW-SEMESTER": {
+    "TITLE": "Novi semestar za ",
+    "DATE": "Datum",
+    "YEAROFSTUDY": "Godina studija",
+    "ACADEMICYEAR": "Ak godina",
+    "PRICE": "Cijena školarine",
+    "RENEWAL": "Obnova godine"
   }
 }
 

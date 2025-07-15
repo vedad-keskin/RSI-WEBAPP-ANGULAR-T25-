@@ -1,4 +1,4 @@
-<h3>Novi semestar za {{student?.firstName ?? "N/A"}} {{student?.lastName ?? "N/A"}}</h3>
+<h3>{{'NEW-SEMESTER.TITLE' | translate}}{{student?.firstName ?? "N/A"}} {{student?.lastName ?? "N/A"}}</h3>
 
 
 <mat-card class="student-form-card">
@@ -6,19 +6,19 @@
 
     <!-- Date custom field -->
     <mat-form-field >
-      <mat-label>Datum</mat-label>
+      <mat-label>{{'NEW-SEMESTER.DATE' | translate}}</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="dateOfEnrollemnt">
       <mat-datepicker-toggle matSuffix [for]="picker" />
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <app-my-input-text myControlName="yearOfStudy" (input)="YearChanged($event)" myLabel="Godina studija" myPlaceholder="Enter year of study"></app-my-input-text>
+    <app-my-input-text myControlName="yearOfStudy" (input)="YearChanged($event)" myLabel="{{'NEW-SEMESTER.YEAROFSTUDY' | translate}}" myPlaceholder="Enter year of study"></app-my-input-text>
 
-    <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="AK Godina"></app-my-dropdown>
+    <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="{{'NEW-SEMESTER.ACADEMICYEAR' | translate}}"></app-my-dropdown>
 
-    <app-my-input-text myControlName="price" myLabel="Cijena školarine" myPlaceholder="Enter price"></app-my-input-text>
+    <app-my-input-text myControlName="price" myLabel="{{'NEW-SEMESTER.PRICE' | translate}}" myPlaceholder="Enter price"></app-my-input-text>
 
-    <mat-checkbox formControlName="renewal">Obnova godine</mat-checkbox>
+    <mat-checkbox formControlName="renewal">{{'NEW-SEMESTER.RENEWAL' | translate}}</mat-checkbox>
 
     <div class="form-buttons">
       <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>

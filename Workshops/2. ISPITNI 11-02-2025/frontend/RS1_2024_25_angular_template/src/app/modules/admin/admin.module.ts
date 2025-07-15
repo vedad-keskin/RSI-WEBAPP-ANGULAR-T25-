@@ -47,6 +47,7 @@ import { StudentSemestersNewComponent } from './students/student-semesters/stude
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {DateAdapter, MatNativeDateModule, NativeDateAdapter} from '@angular/material/core';
+import {TranslatePipe} from "@ngx-translate/core";
 
 
 @NgModule({
@@ -73,36 +74,37 @@ import {DateAdapter, MatNativeDateModule, NativeDateAdapter} from '@angular/mate
     StudentSemestersComponent,
     StudentSemestersNewComponent,
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    FormsModule,
-    SharedModule,
-    MatButton,
-    MatTable,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatPaginator,
-    MatFormField,
-    MatInput,
-    MatIconModule,
-    MatColumnDef,
-    MatTableModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatSelect,
-    MatOption,
-    MatCard,
-    MatProgressSpinner,
-    MatCheckbox,
-    MatDatepickerInput,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatNativeDateModule
-    // Omogućava pristup svemu što je eksportovano iz SharedModule
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        FormsModule,
+        SharedModule,
+        MatButton,
+        MatTable,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatPaginator,
+        MatFormField,
+        MatInput,
+        MatIconModule,
+        MatColumnDef,
+        MatTableModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatSelect,
+        MatOption,
+        MatCard,
+        MatProgressSpinner,
+        MatCheckbox,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatNativeDateModule,
+        TranslatePipe,
+        // Omogućava pristup svemu što je eksportovano iz SharedModule
+    ],
   providers: []
 })
 export class AdminModule {
