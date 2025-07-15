@@ -28,7 +28,7 @@ public class StudentDeleteEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
 
         // Soft-delete
         student.IsDeleted = true;
-        student.TimeDeleted = DateTime.UtcNow;
+        student.TimeDeleted = DateTime.Now;
 
 
         await db.SaveChangesAsync(cancellationToken);
