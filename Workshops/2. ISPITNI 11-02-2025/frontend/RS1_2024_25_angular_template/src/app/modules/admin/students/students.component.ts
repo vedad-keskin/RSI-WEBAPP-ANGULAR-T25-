@@ -2,7 +2,10 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudentGetAllResponse } from '../../../endpoints/student-endpoints/student-get-all-endpoint.service';
 import { StudentGetAllEndpointService } from '../../../endpoints/student-endpoints/student-get-all-endpoint.service';
-import { StudentDeleteEndpointService } from '../../../endpoints/student-endpoints/student-delete-endpoint.service';
+import {
+  StudentDeleteEndpointService,
+  StudentDeleteRequest
+} from '../../../endpoints/student-endpoints/student-delete-endpoint.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -23,7 +26,7 @@ import {map, tap} from 'rxjs/operators';
 export class StudentsComponent implements OnInit, AfterViewInit {
 
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'studentNumber','timeDeleted', 'actions'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'studentNumber','timeDeleted','userDeleted', 'actions'];
   dataSource: MatTableDataSource<StudentGetAllResponse> = new MatTableDataSource<StudentGetAllResponse>();
   students: StudentGetAllResponse[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -75,6 +78,13 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     this.searchSubject.next(filterValue);
   }
 
+  applyFilter2(event: KeyboardEvent) {
+
+    const filterValue2 = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.fetchStudents(filterValue2, this.paginator.pageIndex + 1, this.paginator.pageSize);
+
+  }
+
   fetchStudents(filter: string = '', page: number = 1, pageSize: number = 5): void {
     this.studentGetService.handleAsync({
       q: filter,
@@ -104,7 +114,21 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   deleteStudent(id: number): void {
-    this.studentDeleteService.handleAsync(id).subscribe({
+
+    const authData = localStorage.getItem('my-auth-token');
+    let tempId: number = 0;
+
+    if (authData) {
+      const JSONAuth = JSON.parse(authData);
+      tempId = JSONAuth.myAuthInfo.userId;
+    }
+
+    const deleteData: StudentDeleteRequest = {
+      id: id,
+      userDeletedId: tempId
+    };
+
+    this.studentDeleteService.handleAsync(deleteData).subscribe({
       next: () => {
         this.snackbar.showMessage('Student successfully deleted.');
         this.fetchStudents(); // Refresh the list after deletion
@@ -184,4 +208,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     });
 
   }
+
+
 }

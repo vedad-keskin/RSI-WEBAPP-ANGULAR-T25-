@@ -10,7 +10,7 @@ namespace RS1_2024_25.API.Endpoints.StudentEndpoints;
 
 // Endpoint za vraćanje liste studenata s filtriranjem i paginacijom
 [Route("students")]
-[MyAuthorization(isAdmin: true, isManager: false)]
+//[MyAuthorization(isAdmin: true, isManager: false)]
 public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsync
     .WithRequest<StudentGetAllRequest>
     .WithResult<MyPagedList<StudentGetAllResponse>>
@@ -20,6 +20,7 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
     {
         // Osnovni upit za studente
         var query = db.Students
+            .Include(x=> x.UserDeleted)
                    //.Where(s => !s.IsDeleted)
                    .AsQueryable();
 
@@ -45,6 +46,7 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
             BirthMunicipality = s.BirthMunicipality != null ? s.BirthMunicipality.Name : null,
             IsDeleted = s.IsDeleted,
             TimeDeleted = s.TimeDeleted,
+            UserDeletedName = s.UserDeleted.Email
         });
 
         // Kreiranje paginiranog rezultata
@@ -70,5 +72,6 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
         public string? BirthMunicipality { get; set; }
         public bool? IsDeleted { get; set; }
         public DateTime? TimeDeleted { get; set; }
+        public string? UserDeletedName { get; set; }
     }
 }

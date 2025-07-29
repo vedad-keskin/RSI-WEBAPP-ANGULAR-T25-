@@ -41,4 +41,8 @@ public class Student : TenantSpecificTable
     public string? ContactPrivateEmail { get; set; }
     public bool IsDeleted { get; internal set; }
     public DateTime? TimeDeleted { get; set; }
+    public int? UserDeletedId { get; set; } // FK na grad
+    [ForeignKey(nameof(UserDeletedId))]
+    public MyAppUser? UserDeleted { get; set; } // Navigaciona veza na grad
+
 }

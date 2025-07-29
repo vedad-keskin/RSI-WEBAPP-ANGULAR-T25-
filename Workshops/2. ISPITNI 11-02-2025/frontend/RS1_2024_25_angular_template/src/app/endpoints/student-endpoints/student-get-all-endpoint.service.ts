@@ -21,6 +21,7 @@ export interface StudentGetAllResponse {
   birthMunicipality?: string; // Općina rođenja
   isDeleted?: boolean;
   timeDeleted:Date;
+  userDeletedName:string;
 }
 
 @Injectable({
