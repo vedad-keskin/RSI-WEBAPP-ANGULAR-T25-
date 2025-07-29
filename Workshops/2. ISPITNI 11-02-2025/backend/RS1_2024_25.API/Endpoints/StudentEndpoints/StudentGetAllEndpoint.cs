@@ -29,6 +29,7 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
         {
             query = query.Where(s =>
                 s.User.FirstName.Contains(request.Q) ||
+                s.UserDeleted!.Email.Contains(request.Q) ||
                 s.User.LastName.Contains(request.Q) ||
                 s.StudentNumber.Contains(request.Q) ||
                 (s.Citizenship != null && s.Citizenship.Name.Contains(request.Q))
