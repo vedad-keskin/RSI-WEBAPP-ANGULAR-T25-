@@ -92,7 +92,10 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       error: (err) => {
         this.snackbar.showMessage('Error fetching students. Please try again.', 5000);
         console.error('Error fetching students:', err);
-      }
+      },
+      complete:() => {
+        console.log(`Record number: ${this.dataSource.data.length}`);
+    }
     });
   }
 
