@@ -64,14 +64,14 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
 
     ).subscribe((filterValue) => {
-      this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
+      this.fetchStudents(filterValue,'', this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
   }
 
   ngAfterViewInit(): void {
     this.paginator.page.subscribe(() => {
       const filterValue = this.dataSource.filter || '';
-      this.fetchStudents(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
+      this.fetchStudents(filterValue, '', this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
   }
 
@@ -83,13 +83,14 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   applyFilter2(event: KeyboardEvent) {
 
     const filterValue2 = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.fetchStudents(filterValue2, this.paginator.pageIndex + 1, this.paginator.pageSize);
+    this.fetchStudents('',filterValue2, this.paginator.pageIndex + 1, this.paginator.pageSize);
 
   }
 
-  fetchStudents(filter: string = '', page: number = 1, pageSize: number = 5): void {
+  fetchStudents(filter: string = '' , filter2: string = '', page: number = 1, pageSize: number = 5): void {
     this.studentGetService.handleAsync({
       q: filter,
+      deletedByUsername: filter2,
       pageNumber: page,
       pageSize: pageSize
     }).subscribe({

@@ -9,6 +9,7 @@ import {MyPagedList} from '../../helper/my-paged-list';
 // DTO za zahtjev
 export interface StudentGetAllRequest extends MyPagedRequest {
   q?: string; // Upit za pretragu (ime, prezime, broj indeksa, itd.)
+  deletedByUsername?: string;
 }
 
 // DTO za odgovor
