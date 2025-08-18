@@ -16,6 +16,7 @@ import {MySnackbarHelperService} from '../../shared/snackbars/my-snackbar-helper
 import {MyDialogSimpleComponent} from '../../shared/dialogs/my-dialog-simple/my-dialog-simple.component';
 import {StudentRestoreEndpointService} from '../../../endpoints/student-endpoints/student-restore-endpoint.service';
 import {map, tap} from 'rxjs/operators';
+import {MyAuthService} from '../../../services/auth-services/my-auth.service';
 
 @Component({
   selector: 'app-students',
@@ -44,7 +45,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     private snackbar: MySnackbarHelperService,
     private router: Router,
     private dialog: MatDialog,
-    private studentRestoreService:StudentRestoreEndpointService
+    private studentRestoreService:StudentRestoreEndpointService,
+    private myAuthService:MyAuthService
   ) {}
 
   ngOnInit(): void {
@@ -115,17 +117,9 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   deleteStudent(id: number): void {
 
-    const authData = localStorage.getItem('my-auth-token');
-    let tempId: number = 0;
-
-    if (authData) {
-      const JSONAuth = JSON.parse(authData);
-      tempId = JSONAuth.myAuthInfo.userId;
-    }
-
     const deleteData: StudentDeleteRequest = {
       id: id,
-      userDeletedId: tempId
+      userDeletedId: this.myAuthService.getMyAuthInfo()?.userId
     };
 
     this.studentDeleteService.handleAsync(deleteData).subscribe({

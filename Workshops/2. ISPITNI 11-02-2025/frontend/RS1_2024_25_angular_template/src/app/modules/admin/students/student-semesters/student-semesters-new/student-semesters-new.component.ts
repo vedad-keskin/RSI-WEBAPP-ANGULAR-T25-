@@ -18,6 +18,7 @@ import {
 import {
   SemesterGetAllByStudentIdEndpoint
 } from '../../../../../endpoints/semster-endpoints/semester-get-all-by-student-id-endpoint.service';
+import {MyAuthService} from '../../../../../services/auth-services/my-auth.service';
 
 @Component({
   selector: 'app-student-semesters-new',
@@ -33,7 +34,6 @@ export class StudentSemestersNewComponent implements OnInit {
   student: StudentGetByIdResponse | null = null;
   semesterForm: FormGroup;
   academicYears:any;
-  loggedInUserId:number = 0;
   semesters:any;
 
 
@@ -44,29 +44,19 @@ export class StudentSemestersNewComponent implements OnInit {
               private router: Router,
               private academicYearService:AcademicYearEndpoint,
               private semesterUpdateOrInsertService:SemesterUpdateOrInsertEndpoint,
-              private semesterGetAllByStudentIdService:SemesterGetAllByStudentIdEndpoint
+              private semesterGetAllByStudentIdService:SemesterGetAllByStudentIdEndpoint,
+              private myAuthService:MyAuthService
 
 
   ) {
 
     this.studentId = this.route.snapshot.params['id'];
 
-    const authData = localStorage.getItem('my-auth-token');
-
-    if(authData){
-
-      const JSONAuth = JSON.parse(authData);
-
-      this.loggedInUserId = JSONAuth.myAuthInfo.userId;
-
-    }
-
-
     this.semesterForm = this.fb.group({
 
       academicYearId: [1, [Validators.required]],
       studentId: [this.studentId , [Validators.required]],
-      recordedById: [this.loggedInUserId , [Validators.required]],
+      recordedById: [this.myAuthService.getMyAuthInfo()?.userId , [Validators.required]],
       dateOfEnrollment: [new Date , [Validators.required]],
       yearOfStudy: [ null , [Validators.required]],
       price: [  {value: null , disabled: true } , [Validators.required, Validators.min(50), Validators.max(2000)]],
