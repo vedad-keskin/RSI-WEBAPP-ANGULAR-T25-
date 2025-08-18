@@ -36,6 +36,14 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
             );
         }
 
+        // Primjena filtera po deletedbyUsername
+        if (!string.IsNullOrWhiteSpace(request.DeletedByUsername))
+        {
+            query = query.Where(s =>
+                s.UserDeleted!.Email.Contains(request.DeletedByUsername)
+            );
+        }
+
         // Projektovanje u DTO tip za rezultat
         var projectedQuery = query.Select(s => new StudentGetAllResponse
         {
@@ -60,6 +68,7 @@ public class StudentGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsyn
     public class StudentGetAllRequest : MyPagedRequest
     {
         public string? Q { get; set; } = string.Empty; // Tekstualni upit za pretragu
+        public string? DeletedByUsername { get; set; } = string.Empty; // Tekstualni upit za pretragu
     }
 
     // DTO za odgovor
