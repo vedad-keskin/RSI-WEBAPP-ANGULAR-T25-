@@ -22,6 +22,7 @@ public class SemesterGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsy
         var query = db.Semesters
             .Include(x => x.Student.User)
             .Include(x => x.RecordedBy)
+            .Include(x => x.AcademicYear)
             .Where(s => s.StudentId == request.StudentId)
             .AsQueryable();
 
@@ -49,9 +50,7 @@ public class SemesterGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsy
         if (!string.IsNullOrWhiteSpace(request.Q))
         {
             query = query.Where(s =>
-                s.Student.User.FirstName.Contains(request.Q) ||
-               s.Student.User.LastName.Contains(request.Q) ||
-                s.RecordedBy.Email.Contains(request.Q) 
+                s.AcademicYear.Description.Contains(request.Q) 
             );
         }
 
