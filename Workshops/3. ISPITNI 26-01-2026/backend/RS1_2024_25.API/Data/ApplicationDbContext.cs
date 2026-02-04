@@ -39,7 +39,7 @@ public class ApplicationDbContext(DbContextOptions options, IHttpContextAccessor
     public IQueryable<Semester> Semesters => Set<Semester>().Where(e => e.TenantId == CurrentTenantIdThrowIfFail);
 
     #region METHODS
-    public int? _CurrentTenantId = null;
+    public int? _CurrentTenantId = 1;
 
     public int CurrentTenantIdThrowIfFail
     {

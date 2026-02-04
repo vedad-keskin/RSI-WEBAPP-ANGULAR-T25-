@@ -74,7 +74,7 @@ public class SemesterGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsy
         [FromRoute(Name = "studentId")]
         public int StudentId { get; set; }
         public string? Q { get; set; } = string.Empty;
-        public string? Status { get; set; } = "active";
+        public string? Status { get; set; } = "all";
     }
 
     public class SemesterGetAllResponse
