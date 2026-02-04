@@ -1,0 +1,17 @@
+h1{
+    border-top: 1px solid gray;
+    color: #000000;
+    font-size: 38px;
+    text-align: center;
+    width: 100%;
+}
+
+*{
+    font-family: Tahoma, sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: rgb(173, 196, 230);
+    }
+  }

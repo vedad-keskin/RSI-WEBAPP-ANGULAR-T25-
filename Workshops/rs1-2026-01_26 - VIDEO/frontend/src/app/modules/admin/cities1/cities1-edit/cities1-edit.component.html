@@ -1,0 +1,37 @@
+<h2 *ngIf="cityId != 0">Edit City</h2>
+<h2 *ngIf="cityId == 0">Add New City</h2>
+
+<div>
+  <!-- City Name -->
+  <div>
+    <label for="name">City Name:</label>
+    <input [(ngModel)]="city.name" id="name" required/>
+  </div>
+
+  <!-- Country Dropdown -->
+  <div>
+    <label for="countryId">Country:</label>
+    <select (change)="loadRegionsForCountry(city.countryId)" [(ngModel)]="city.countryId" id="countryId" required>
+      <option *ngFor="let country of countries" [value]="country.id">
+        {{ country.name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Region Dropdown -->
+  <div *ngIf="regions.length > 0">
+    <label for="regionId">Region:</label>
+    <select [(ngModel)]="city.regionId" id="regionId" required>
+      <option value="0">-- Select Region --</option>
+      <option *ngFor="let region of regions" [value]="region.id">
+        {{ region.name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Buttons -->
+  <div>
+    <button (click)="updateCity()">Save Changes</button>
+    <button routerLink="/admin/cities" type="button">Cancel</button>
+  </div>
+</div>
