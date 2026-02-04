@@ -66,12 +66,12 @@
       </button>-->
 
 
-    <button (click)="openMyConfirmDialog(semester.id)" color="warn" mat-button>
+    <button *ngIf="!semester.isDeleted" (click)="openMyConfirmDialog(semester.id)" color="warn" mat-button>
         <mat-icon>delete</mat-icon>
-        Delete
+        Remove
       </button>
 
-      <button (click)="openMyConfirmDialogForRestore(semester.id)" color="warn" mat-button>
+      <button *ngIf="semester.isDeleted" (click)="openMyConfirmDialogForRestore(semester.id)" color="primary" mat-button>
         <mat-icon>restore</mat-icon>
         Restore
       </button>
