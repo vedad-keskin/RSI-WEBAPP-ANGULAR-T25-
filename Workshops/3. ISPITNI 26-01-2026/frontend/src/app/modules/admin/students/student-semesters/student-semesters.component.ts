@@ -31,7 +31,8 @@ import {map, tap} from 'rxjs/operators';
 export class StudentSemestersComponent implements OnInit, AfterViewInit  {
 
   noviSemestar() {
-    alert('Ovo je ZADATAK B');
+
+    this.router.navigate(['/admin/students', 1, 'semesters' , 'new']);
   }
 
   displayedColumns: string[] = ['academicYearDescription', 'studyYear', 'enrollmentDate', 'isRenewal','tuitionFee','actions'];
@@ -109,7 +110,6 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
   }
 
   editCity(id: number): void {
-    this.router.navigate(['/admin/cities3/edit', id]);
   }
 
 

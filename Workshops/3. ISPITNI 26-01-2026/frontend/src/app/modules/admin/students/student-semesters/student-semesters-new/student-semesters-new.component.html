@@ -2,3 +2,27 @@
   <h2>Upis novog semestra</h2>
   <!-- TODO: Implementirati formu za upis novog semestra -->
 </mat-card>
+
+<mat-card class="student-form-card">
+
+
+
+  <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
+
+
+    <input type="date" formControlName="enrollmentDate">
+
+    <app-my-input-text myControlName="studyYear" (input)="yearChange($event)" myLabel="Study Year" myPlaceholder="Enter study year"></app-my-input-text>
+
+    <app-my-dropdown [options]="academicYears" myControlName="academicYearId" myLabel="Academic Years"></app-my-dropdown>
+
+    <app-my-input-text myControlName="tuitionFee" myLabel="Tuition Fee" myPlaceholder="Enter tuition fee"></app-my-input-text>
+
+    <mat-checkbox formControlName="isRenewal">Obnova</mat-checkbox>
+
+    <div class="form-buttons">
+      <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">Save Changes</button>
+      <button color="warn" mat-raised-button routerLink="/admin/students/1/semesters" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>

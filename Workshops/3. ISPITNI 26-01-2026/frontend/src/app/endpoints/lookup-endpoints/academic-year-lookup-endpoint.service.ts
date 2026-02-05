@@ -5,7 +5,7 @@ import {MyBaseEndpointAsync} from '../../helper/my-base-endpoint-async.interface
 
 export interface AcademicYearLookupResponse {
   id: number;
-  description: string;
+  name: string;
 }
 
 @Injectable({
