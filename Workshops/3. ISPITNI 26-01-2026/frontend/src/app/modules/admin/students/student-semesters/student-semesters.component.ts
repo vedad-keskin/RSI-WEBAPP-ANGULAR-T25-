@@ -6,7 +6,7 @@ import {
 } from '../../../../endpoints/city-endpoints/city-get-all3-endpoint.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, Subject} from 'rxjs';
 import {CityDeleteEndpointService} from '../../../../endpoints/city-endpoints/city-delete-endpoint.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import {SemesterDeleteEndpointService} from '../../../../endpoints/semester-endp
 import {
   SemesterRestoreEndpointService
 } from '../../../../endpoints/semester-endpoints/semester-restore-endpoint.service';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-semesters',
@@ -42,6 +43,7 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatSort) sort!: MatSort;
 
   private searchSubject: Subject<string> = new Subject();
+  status = 'active';
 
   constructor(
     private semesterGetService: SemesterGetAllEndpointService,
@@ -61,6 +63,10 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
     this.searchSubject.pipe(
       debounceTime(300), // Vrijeme čekanja (300ms)
       distinctUntilChanged(), // Emittuje samo ako je vrijednost promijenjena,
+      map(q => q.length > 3 ? q : ''),
+      map(q => q.trim().toLowerCase()),
+      tap(q => console.log(q))
+
     ).subscribe((filterValue) => {
       this.fetchSemesters(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
@@ -79,13 +85,14 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
   }
 
   fetchSemesters(filter: string = '', page: number = 1, pageSize: number = 5): void {
-    this.semesterGetService.handleAsync(1,
-      {
-        q: filter,
-        pageNumber: page,
-        pageSize: pageSize
-      }
-    ).subscribe({
+    this.semesterGetService.handleAsync(1, {
+      q: filter,
+      pageNumber: page,
+      pageSize: pageSize,
+      status: this.status
+    })
+
+      .subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource<SemesterGetAllResponse>(data.dataItems);
         this.paginator.length = data.totalCount; // Postavljanje ukupnog broja stavki
@@ -93,6 +100,11 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
       error: (err) => {
         console.error('Error fetching semesters:', err);
       },
+        complete: () => {
+
+        console.log(this.dataSource.data.length)
+
+        }
     });
   }
 
