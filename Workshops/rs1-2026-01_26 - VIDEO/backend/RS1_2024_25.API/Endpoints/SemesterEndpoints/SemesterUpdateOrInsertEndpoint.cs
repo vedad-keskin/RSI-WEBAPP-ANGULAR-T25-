@@ -23,6 +23,8 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db, IMyAuthServ
 
         var studentId = int.Parse(HttpContext.GetRouteValue("studentId").ToString());
 
+
+
         var authInfo = authService.GetAuthInfoFromRequest();
 
 
@@ -62,6 +64,7 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db, IMyAuthServ
         semester.AcademicYearId = request.AcademicYearId;
         semester.StudyYear = request.StudyYear;
         semester.EnrollmentDate = request.EnrollmentDate;
+        semester.StudentId = studentId;
         //semester.TenantId = 1;
         semester.TenantId = authInfo.TenantId;
         semester.RecordedById = authInfo.UserId;
