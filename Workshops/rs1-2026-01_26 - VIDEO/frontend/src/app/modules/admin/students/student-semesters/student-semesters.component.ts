@@ -19,6 +19,7 @@ import {SemesterDeleteEndpointService} from '../../../../endpoints/semester-endp
 import {
   SemesterRestoreEndpointService
 } from '../../../../endpoints/semester-endpoints/semester-restore-endpoint.service';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-semesters',
@@ -39,6 +40,7 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit {
   semesters: SemesterGetAllResponse[] = [];
 
   studentId:number = 0;
+  status:string = "active";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -67,6 +69,12 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit {
     this.searchSubject.pipe(
       debounceTime(300), // Vrijeme čekanja (300ms)
       distinctUntilChanged(), // Emittuje samo ako je vrijednost promijenjena,
+      map(q => q.toLowerCase() ),
+      map(q => q.length > 3 ? q : ""),
+      tap(q => console.log('Q parametar je: ',q)),
+      // tap(q => console.log('Broj zapisa je: ',this.dataSource.data.length),)
+
+
     ).subscribe((filterValue) => {
       this.fetchSemesters(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
     });
@@ -89,7 +97,8 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit {
       {
         q: filter,
         pageNumber: page,
-        pageSize: pageSize
+        pageSize: pageSize,
+        status: this.status,
       }
     ).subscribe({
       next: (data) => {
@@ -99,6 +108,11 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit {
       error: (err) => {
         console.error('Error fetching semesters:', err);
       },
+      complete: () => {
+
+        console.log('Broj zapisa je: ',this.dataSource.data.length);
+
+      }
     });
   }
 

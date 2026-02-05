@@ -10,6 +10,14 @@
 
 
 <div class="search-container">
+  <label>Status:</label>
+    <select (change)="status = $any($event.target).value; fetchSemesters()">
+      <option value="active">Active</option>
+      <option value="deleted">Deleted</option>
+      <option value="all">All</option>
+
+    </select>
+
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
     <input (keyup)="applyFilter($event)" matInput placeholder="Search semesters">
@@ -56,13 +64,6 @@
     <mat-cell *matCellDef="let semester">
 
 
-
-<!--      <button (click)="editCity(city.id)" color="primary" mat-button>-->
-<!--        <mat-icon>edit</mat-icon>-->
-<!--        Edit-->
-<!--      </button>-->
-<!--      -->
-<!--      -->
       <button *ngIf="!semester.isDeleted" (click)="openMyConfirmDialog(semester.id)" color="warn" mat-button>
         <mat-icon>delete</mat-icon>
         Delete
@@ -79,7 +80,7 @@
 
   <!-- Table Header and Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [class.obrisano]="row.isDeleted"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [class.obrisano]="row.isDeleted && status=='all'"></mat-row>
 </table>
 
 <mat-paginator [length]="semesters.length" [pageSizeOptions]="[5, 10, 20]" [pageSize]="5"
