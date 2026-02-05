@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RS1_2024_25.API.Data;
+using RS1_2024_25.API.Data.Models.SharedTables;
+using RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul1_Auth;
+using RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul2_Basic;
 using RS1_2024_25.API.Helper;
 using RS1_2024_25.API.Helper.Api;
 using RS1_2024_25.API.Services;
-using static RS1_2024_25.API.Endpoints.SemesterEndpoints.SemesterGetAllEndpoint;
+using System.ComponentModel.DataAnnotations.Schema;
+using static RS1_2024_25.API.Endpoints.StudentEndpoints.SemesterGetAllEndpoint;
+using static RS1_2024_25.API.Endpoints.StudentEndpoints.StudentGetAllEndpoint;
 
-namespace RS1_2024_25.API.Endpoints.SemesterEndpoints;
+namespace RS1_2024_25.API.Endpoints.StudentEndpoints;
 
+// Endpoint za vraćanje liste studenata s filtriranjem i paginacijom
 [Route("students")]
 //[MyAuthorization(isAdmin: true, isManager: false)]
 public class SemesterGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsync
@@ -15,76 +21,112 @@ public class SemesterGetAllEndpoint(ApplicationDbContext db) : MyEndpointBaseAsy
     .WithResult<MyPagedList<SemesterGetAllResponse>>
 {
     [HttpGet("{studentId}/semesters/filter")]
-    public override async Task<MyPagedList<SemesterGetAllResponse>> HandleAsync(
-        SemesterGetAllRequest request,
-        CancellationToken cancellationToken = default)
+    public override async Task<MyPagedList<SemesterGetAllResponse>> HandleAsync([FromQuery] SemesterGetAllRequest request, CancellationToken cancellationToken = default)
     {
+        // Osnovni upit za semesters
         var query = db.Semesters
-            .Include(x => x.Student.User)
-            .Include(x => x.RecordedBy)
             .Include(x => x.AcademicYear)
-            .Where(s => s.StudentId == request.StudentId)
-            .AsQueryable();
+            .Include(x => x.Student)
+            .Include(x => x.RecordedBy)
+            .Where(x => x.StudentId == request.StudentId)
+                   .AsQueryable();
 
 
+        //if (!string.IsNullOrWhiteSpace(request.Status))
+        //{
+        //    switch (request.Status.ToLower()) 
+        //    {
+
+
+        //        case "active":
+        //            query = query.Where(x => !x.IsDeleted);
+        //            break;
+
+        //        case "deleted":
+        //            query = query.Where(x => x.IsDeleted);
+        //            break;
+
+        //        case "all":
+                    
+        //            break;
+
+
+
+        //    }
+
+
+        //}
 
         if (!string.IsNullOrWhiteSpace(request.Status))
         {
-            switch (request.Status.ToLower())
+            if( request.Status.ToLower() == "active")
             {
-                case "active":
-                    query = query.Where(s => !s.IsDeleted);
-                    break;
+                query = query.Where(x => !x.IsDeleted);
 
-                case "deleted":
-                    query = query.Where(s => s.IsDeleted);
-                    break;
-
-                case "all":
-                    // ništa ne filtrira — vraća sve
-                    break;
             }
+            else if (request.Status.ToLower() == "deleted")
+            {
+
+                query = query.Where(x => x.IsDeleted);
+
+            }
+
+
         }
+
 
         // Primjena filtera po imenu, prezimenu, student broju ili državi
         if (!string.IsNullOrWhiteSpace(request.Q))
         {
             query = query.Where(s =>
-                s.AcademicYear.Description.Contains(request.Q) 
+                s.AcademicYear.Description.Contains(request.Q)
             );
         }
 
+
+
+
+        // Projektovanje u DTO tip za rezultat
         var projectedQuery = query.Select(s => new SemesterGetAllResponse
         {
-            Id = s.ID,
-            AcademicYearDescription = s.AcademicYear != null ? s.AcademicYear.Description : string.Empty,
+            ID = s.ID,
+            AcademicYearDescription = s.AcademicYear != null ? s.AcademicYear.Description : "",
             StudyYear = s.StudyYear,
             EnrollmentDate = s.EnrollmentDate,
             IsRenewal = s.IsRenewal,
             TuitionFee = s.TuitionFee,
-            IsDeleted = s.IsDeleted
+            IsDeleted = s.IsDeleted,
+            
         });
 
+        // Kreiranje paginiranog rezultata
         var result = await MyPagedList<SemesterGetAllResponse>.CreateAsync(projectedQuery, request, cancellationToken);
+
         return result;
     }
 
+    // DTO za zahtjev s podrškom za paginaciju i filtriranje
     public class SemesterGetAllRequest : MyPagedRequest
     {
-        [FromRoute(Name = "studentId")]
+        [FromRoute(Name="studentId")]
         public int StudentId { get; set; }
-        public string? Q { get; set; } = string.Empty;
-        public string? Status { get; set; } = "all";
+        public string? Q { get; set; } = string.Empty; // Tekstualni upit za pretragu
+        public string? Status { get; set; } = "all"; // Tekstualni upit za pretragu
+
+
     }
 
+    // DTO za odgovor
     public class SemesterGetAllResponse
     {
-        public int Id { get; set; }
-        public required string AcademicYearDescription { get; set; }
+        public required int ID { get; set; }
+
+        public string? AcademicYearDescription { get; set; }
+
         public int StudyYear { get; set; }
         public DateTime EnrollmentDate { get; set; }
-        public bool IsRenewal { get; set; }
         public float TuitionFee { get; set; }
+        public bool IsRenewal { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

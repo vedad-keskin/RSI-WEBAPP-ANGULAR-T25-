@@ -8,12 +8,13 @@ import {
 import {
   SemesterRestoreEndpointService
 } from '../../../../../endpoints/semester-endpoints/semester-restore-endpoint.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {MySnackbarHelperService} from '../../../../shared/snackbars/my-snackbar-helper.service';
 import {
   SemesterUpdateOrInsertEndpointService, SemesterUpdateOrInsertRequest
 } from '../../../../../endpoints/semester-endpoints/semester-update-or-insert-endpoint.service';
-import {MatTableDataSource} from '@angular/material/table';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   AcademicYearLookupEndpointService
@@ -21,7 +22,6 @@ import {
 import {
   StudentUpdateOrInsertRequest
 } from '../../../../../endpoints/student-endpoints/student-update-or-insert-endpoint.service';
-import {MySnackbarHelperService} from '../../../../shared/snackbars/my-snackbar-helper.service';
 
 @Component({
   selector: 'app-student-semesters-new',
@@ -30,64 +30,65 @@ import {MySnackbarHelperService} from '../../../../shared/snackbars/my-snackbar-
   templateUrl: './student-semesters-new.component.html',
   styleUrl: './student-semesters-new.component.css'
 })
-export class StudentSemestersNewComponent implements OnInit  {
+export class StudentSemestersNewComponent implements OnInit {
 
-
+  studentId:number = 0;
 
   dataSource: MatTableDataSource<SemesterGetAllResponse> = new MatTableDataSource<SemesterGetAllResponse>();
   semesterForm: FormGroup;
+
   academicYears:any;
 
-
   constructor(
-    private semesterGetService: SemesterGetAllEndpointService,
-    private semesterUpdateOrInsertService: SemesterUpdateOrInsertEndpointService,
-    private academicYearLookupService:AcademicYearLookupEndpointService,
-    private fb: FormBuilder,
+    private semesterGetAllService:SemesterGetAllEndpointService,
     private router: Router,
     private dialog: MatDialog,
+    private route: ActivatedRoute,
     private snackbar: MySnackbarHelperService,
+    private semesterUpdateOrInsertService:SemesterUpdateOrInsertEndpointService,
+    private fb: FormBuilder,
+    private academicYearLookupService:AcademicYearLookupEndpointService
 
   ) {
 
+
     this.semesterForm = this.fb.group({
 
-      tuitionFee: [{value: null , disabled: true}],
-      isRenewal: [{value: null , disabled: true}],
+      tuitionFee: [{value:null, disabled:true}],
+      isRenewal: [{value:null, disabled:true}],
       academicYearId: [1, [Validators.required]],
-      studyYear:  [null, [Validators.required]],
-      enrollmentDate:  [new Date(), [Validators.required]],
+      studyYear: [null, [Validators.required]],
+      enrollmentDate: [new Date(), [Validators.required]],
 
     });
-
 
   }
 
   ngOnInit(): void {
+
+    this.studentId = Number(this.route.snapshot.paramMap.get('id'));
+
     this.fetchSemesters();
     this.fetchAcademicYears();
   }
 
   fetchSemesters(filter: string = '', page: number = 1, pageSize: number = 5): void {
-    this.semesterGetService.handleAsync(1, {
-      pageNumber: page,
-      pageSize: 100,
-    })
+    this.semesterGetAllService.handleAsync(this.studentId,
+      {
+        pageNumber: page,
+        pageSize: 100,
 
-      .subscribe({
-        next: (data) => {
-          this.dataSource = new MatTableDataSource<SemesterGetAllResponse>(data.dataItems);
-        },
-        error: (err) => {
-          console.error('Error fetching semesters:', err);
-        },
-        complete: () => {
+      }
+    ).subscribe({
+      next: (data) => {
+        this.dataSource = new MatTableDataSource<SemesterGetAllResponse>(data.dataItems);
+      },
+      error: (err) => {
+        console.error('Error fetching semesters:', err);
+      },
 
-
-        }
-      });
+    });
   }
-
 
   saveSemester() {
 
@@ -97,16 +98,20 @@ export class StudentSemestersNewComponent implements OnInit  {
       ...this.semesterForm.value,
     };
 
-    this.semesterUpdateOrInsertService.handleAsync(1,semesterData).subscribe({
+    this.semesterUpdateOrInsertService.handleAsync(this.studentId,semesterData).subscribe({
       next: () => {
-        this.router.navigate(['/admin/students',1,'semesters']);
+
+
+        this.router.navigate(['/admin/students', this.studentId, 'semesters']);
+
       },
       error: (error) => {
+        console.error('Error saving semester', error);
 
-        this.snackbar.showMessage(error.error.split('..')[0], 5000);
+        this.snackbar.showMessage(error.error.split('...')[0], 5000);
 
+        // this.snackbar.showMessage('Student has already enrolled in that academic year', 5000);
 
-        //alert(errorMessage); // Display to user
       },
     });
 
@@ -122,48 +127,51 @@ export class StudentSemestersNewComponent implements OnInit  {
 
       },
       error: (err) => {
+        console.error('Error fetching academic years:', err);
+      },
 
-      }
     });
 
   }
 
-  yearChange($event: any) {
+  changedYear($event: any) {
 
-     var studyyear = parseInt( $event.target.value);
+    var studyYear = Number($event.target.value);
+    var studyYear1 = parseInt($event.target.value);
 
-     var count = this.dataSource.data
-       .filter(x => x.studyYear === studyyear)
-       .length;
+    var count = this.dataSource.data.filter(x => x.studyYear == studyYear).length;
 
-     if(count == 0){
+    if(count == 0){
+
+      this.semesterForm.patchValue({
+
+        tuitionFee: 1800,
+        isRenewal: false,
+
+      })
+
+    }else if(count == 1){
 
        this.semesterForm.patchValue({
-         tuitionFee : 1800,
-         isRenewal : false,
+
+         tuitionFee: 400,
+         isRenewal: true,
 
        })
 
-     }else if(count == 1){
+    }else{
 
-       this.semesterForm.patchValue({
-         tuitionFee : 400,
-         isRenewal : true,
+      this.semesterForm.patchValue({
 
-       })
+        tuitionFee: 500,
+        isRenewal: true,
 
-     }else {
+      })
 
-       this.semesterForm.patchValue({
-         tuitionFee : 500,
-         isRenewal : true,
-
-       })
-
-     }
-
-
+    }
 
 
   }
+
+
 }

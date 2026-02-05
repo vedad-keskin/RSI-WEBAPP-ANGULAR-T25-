@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RS1_2024_25.API.Data.Models.SharedTables;
 using RS1_2024_25.API.Data.Models.TenantSpecificTables.Modul1_Auth;
@@ -21,13 +21,13 @@ public class ApplicationDbContext(DbContextOptions options, IHttpContextAccessor
     public DbSet<Region> Regions { get; set; }
     public DbSet<Tenant> Tenants { get; set; }
 
+    public DbSet<Semester> SemestersAll { get; set; }
     public DbSet<MyAppUser> MyAppUsersAll { get; set; }
     public DbSet<MyAuthenticationToken> MyAuthenticationTokensAll { get; set; }
     public DbSet<Department> DepartmentsAll { get; set; }
     public DbSet<Faculty> FacultiesAll { get; set; }
     public DbSet<Professor> ProfessorsAll { get; set; }
     public DbSet<Student> StudentsAll { get; set; }
-    public DbSet<Semester> SemestersAll { get; set; }
 
     // IQueryable umjesto DbSet
     public IQueryable<MyAppUser> MyAppUsers => Set<MyAppUser>().Where(e => e.TenantId == CurrentTenantIdThrowIfFail);

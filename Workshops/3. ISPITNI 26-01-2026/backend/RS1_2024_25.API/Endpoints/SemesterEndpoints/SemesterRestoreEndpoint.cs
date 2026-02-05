@@ -23,6 +23,8 @@ public class SemesterRestoreEndpoint(ApplicationDbContext db) : MyEndpointBaseAs
 
         // Restore
         semester.IsDeleted = false;
+
+
         await db.SaveChangesAsync(cancellationToken);
     }
 }

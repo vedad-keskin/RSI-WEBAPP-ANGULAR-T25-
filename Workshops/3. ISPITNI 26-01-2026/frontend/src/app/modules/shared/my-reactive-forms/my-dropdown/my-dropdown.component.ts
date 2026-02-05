@@ -13,7 +13,7 @@ export class MyDropdownComponent extends MyBaseFormControlComponent implements O
   @Input() myLabel!: string; // Labela za dropdown
   @Input() myId: string = ''; // ID za dropdown (koristi se u <label> for atributu)
   @Input() myPlaceholder: string = ''; // Placeholder tekst
-  @Input() options: { id: number | string; name: string }[] = []; // Opcije za dropdown
+  @Input() options: { id: number | string; description: string }[] = []; // Opcije za dropdown
   @Input() defaultValue: number | string | null = null; // Podrazumijevana vrijednost
 
   @Input() override customMessages: Record<string, string> = {}; // Dodano!

@@ -8,56 +8,53 @@
   </div>
 </mat-card>
 
+
 <div class="search-container">
   <label>Status:</label>
-  <select (change)="status = $any($event.target).value; fetchSemesters()">
-    <option value="active">Active</option>
-    <option value="deleted">Deleted</option>
-    <option value="all">All</option>
-  </select>
+    <select (change)="status = $any($event.target).value; fetchSemesters()">
+      <option value="active">Active</option>
+      <option value="deleted">Deleted</option>
+      <option value="all">All</option>
+
+    </select>
+
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
-    <input (keyup)="applyFilter($event)" matInput placeholder="Search cities">
+    <input (keyup)="applyFilter($event)" matInput placeholder="Search semesters">
   </mat-form-field>
 </div>
 
 <div *ngIf="dataSource.data.length === 0" class="no-data">
-  <p>No cities to display.</p>
+  <p>No semesters to display.</p>
 </div>
 
 <table [dataSource]="dataSource!" class="mat-elevation-z8" mat-table matSort>
 
   <!-- Name Column -->
-  <ng-container matColumnDef="academicYearDescription">
+  <ng-container matColumnDef="academicYear">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Academic Year</mat-header-cell>
     <mat-cell *matCellDef="let semester">{{ semester.academicYearDescription }}</mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="studyYear">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Study Year</mat-header-cell>
     <mat-cell *matCellDef="let semester">{{ semester.studyYear }}</mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="enrollmentDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Enrollment Date</mat-header-cell>
     <mat-cell *matCellDef="let semester">{{ semester.enrollmentDate }}</mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="isRenewal">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Is Renewal</mat-header-cell>
     <mat-cell *matCellDef="let semester">{{ semester.isRenewal }}</mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="tuitionFee">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Tuition Fee</mat-header-cell>
     <mat-cell *matCellDef="let semester">{{ semester.tuitionFee }}</mat-cell>
   </ng-container>
-
-
 
 
 
@@ -66,18 +63,13 @@
     <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
     <mat-cell *matCellDef="let semester">
 
-<!--      <button (click)="editCity(city.id)" color="primary" mat-button>
-        <mat-icon>edit</mat-icon>
-        Edit
-      </button>-->
 
-
-    <button *ngIf="!semester.isDeleted" (click)="openMyConfirmDialog(semester.id)" color="warn" mat-button>
+      <button *ngIf="!semester.isDeleted" (click)="openMyConfirmDialog(semester.id)" color="warn" mat-button>
         <mat-icon>delete</mat-icon>
-        Remove
+        Delete
       </button>
 
-      <button *ngIf="semester.isDeleted" (click)="openMyConfirmDialogForRestore(semester.id)" color="primary" mat-button>
+      <button *ngIf="semester.isDeleted" (click)="openMyConfirmDialogForRestore(semester.id)" color="warn" mat-button>
         <mat-icon>restore</mat-icon>
         Restore
       </button>
@@ -88,8 +80,11 @@
 
   <!-- Table Header and Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns; " [class.obrisano]="row.isDeleted && status == 'all'" ></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [class.obrisano]="row.isDeleted && status=='all'"></mat-row>
 </table>
 
 <mat-paginator [length]="semesters.length" [pageSizeOptions]="[5, 10, 20]" [pageSize]="5"
                showFirstLastButtons></mat-paginator>
+
+
+

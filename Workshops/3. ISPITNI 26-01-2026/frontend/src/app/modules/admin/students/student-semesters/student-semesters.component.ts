@@ -8,7 +8,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {debounceTime, distinctUntilChanged, filter, Subject} from 'rxjs';
 import {CityDeleteEndpointService} from '../../../../endpoints/city-endpoints/city-delete-endpoint.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MyDialogConfirmComponent} from '../../../shared/dialogs/my-dialog-confirm/my-dialog-confirm.component';
 import {
@@ -28,34 +28,41 @@ import {map, tap} from 'rxjs/operators';
   templateUrl: './student-semesters.component.html',
   styleUrl: './student-semesters.component.css'
 })
-export class StudentSemestersComponent implements OnInit, AfterViewInit  {
+export class StudentSemestersComponent implements OnInit, AfterViewInit {
 
   noviSemestar() {
 
-    this.router.navigate(['/admin/students', 1, 'semesters' , 'new']);
+    this.router.navigate(['/admin/students', this.studentId , 'semesters' , 'new']);
+
   }
 
-  displayedColumns: string[] = ['academicYearDescription', 'studyYear', 'enrollmentDate', 'isRenewal','tuitionFee','actions'];
+  displayedColumns: string[] = ['academicYear', 'studyYear', 'enrollmentDate', 'isRenewal','tuitionFee','actions'];
   dataSource: MatTableDataSource<SemesterGetAllResponse> = new MatTableDataSource<SemesterGetAllResponse>();
 
   semesters: SemesterGetAllResponse[] = [];
+
+  studentId:number = 0;
+  status:string = "active";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   private searchSubject: Subject<string> = new Subject();
-  status = 'active';
 
   constructor(
-    private semesterGetService: SemesterGetAllEndpointService,
-    private semesterDeleteService: SemesterDeleteEndpointService,
+    private semesterGetAllService:SemesterGetAllEndpointService,
+    private semesterDeleteService:SemesterDeleteEndpointService,
     private semesterRestoreService:SemesterRestoreEndpointService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
+
+    this.studentId = Number(this.route.snapshot.paramMap.get('id'));
+
     this.initSearchListener();
     this.fetchSemesters();
   }
@@ -64,9 +71,11 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
     this.searchSubject.pipe(
       debounceTime(300), // Vrijeme čekanja (300ms)
       distinctUntilChanged(), // Emittuje samo ako je vrijednost promijenjena,
-      map(q => q.length > 3 ? q : ''),
-      map(q => q.trim().toLowerCase()),
-      tap(q => console.log(q))
+      map(q => q.toLowerCase() ),
+      map(q => q.length > 3 ? q : ""),
+      tap(q => console.log('Q parametar je: ',q)),
+      // tap(q => console.log('Broj zapisa je: ',this.dataSource.data.length),)
+
 
     ).subscribe((filterValue) => {
       this.fetchSemesters(filterValue, this.paginator.pageIndex + 1, this.paginator.pageSize);
@@ -86,14 +95,14 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
   }
 
   fetchSemesters(filter: string = '', page: number = 1, pageSize: number = 5): void {
-    this.semesterGetService.handleAsync(1, {
-      q: filter,
-      pageNumber: page,
-      pageSize: pageSize,
-      status: this.status
-    })
-
-      .subscribe({
+    this.semesterGetAllService.handleAsync(this.studentId,
+      {
+        q: filter,
+        pageNumber: page,
+        pageSize: pageSize,
+        status: this.status,
+      }
+    ).subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource<SemesterGetAllResponse>(data.dataItems);
         this.paginator.length = data.totalCount; // Postavljanje ukupnog broja stavki
@@ -101,23 +110,23 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
       error: (err) => {
         console.error('Error fetching semesters:', err);
       },
-        complete: () => {
+      complete: () => {
 
-        console.log(this.dataSource.data.length)
+        console.log('Broj zapisa je: ',this.dataSource.data.length);
 
-        }
+      }
     });
   }
 
-  editCity(id: number): void {
-  }
-
+  // editCity(id: number): void {
+  //   this.router.navigate(['/admin/cities3/edit', id]);
+  // }
 
   deleteSemester(id: number): void {
 
     this.semesterDeleteService.handleAsync(id).subscribe({
       next: () => {
-        console.log(`City with ID ${id} deleted successfully`);
+
         this.fetchSemesters();
 
 
@@ -149,6 +158,7 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
 
   openMyConfirmDialogForRestore(id:number) {
 
+
     const dialogRef = this.dialog.open(MyDialogConfirmComponent, {
       width: '350px',
       data: {
@@ -170,16 +180,14 @@ export class StudentSemestersComponent implements OnInit, AfterViewInit  {
   }
 
   private restoreSemester(id: number) {
-
-
     this.semesterRestoreService.handleAsync(id).subscribe({
       next: () => {
-        console.log(`Semester with ID ${id} restored successfully`);
+
         this.fetchSemesters();
 
-      },
-      error: (err) => console.error('Error restoring city:', err)
-    });
 
+      },
+      error: (err) => console.error('Error deleting city:', err)
+    });
   }
 }
