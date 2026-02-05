@@ -55,7 +55,7 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db, IMyAuthServ
             x.AcademicYearId == request.AcademicYearId))
         {
 
-            throw new InvalidOperationException("Student has already enrolled in that academic year."); 
+            throw new InvalidOperationException("Student has already enrolled in that academic year..."); 
 
         }
 

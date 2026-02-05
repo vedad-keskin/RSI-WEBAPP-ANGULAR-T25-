@@ -44,6 +44,7 @@ import { StudentsComponent } from './students/students.component';
 import { StudentEditComponent } from './students/student-edit/student-edit.component';
 import { StudentSemestersComponent } from './students/student-semesters/student-semesters.component';
 import { StudentSemestersNewComponent } from './students/student-semesters/student-semesters-new/student-semesters-new.component';
+import {MatCheckbox} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -70,31 +71,32 @@ import { StudentSemestersNewComponent } from './students/student-semesters/stude
     StudentSemestersComponent,
     StudentSemestersNewComponent,
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    FormsModule,
-    SharedModule,
-    MatButton,
-    MatTable,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatPaginator,
-    MatFormField,
-    MatInput,
-    MatIconModule,
-    MatColumnDef,
-    MatTableModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatSelect,
-    MatOption,
-    MatCard,
-    MatProgressSpinner,
-    // Omogućava pristup svemu što je eksportovano iz SharedModule
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        FormsModule,
+        SharedModule,
+        MatButton,
+        MatTable,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatPaginator,
+        MatFormField,
+        MatInput,
+        MatIconModule,
+        MatColumnDef,
+        MatTableModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatSelect,
+        MatOption,
+        MatCard,
+        MatProgressSpinner,
+        MatCheckbox,
+        // Omogućava pristup svemu što je eksportovano iz SharedModule
+    ],
   providers: []
 })
 export class AdminModule {

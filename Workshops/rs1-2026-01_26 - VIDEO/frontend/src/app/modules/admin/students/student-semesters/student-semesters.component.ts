@@ -31,7 +31,9 @@ import {map, tap} from 'rxjs/operators';
 export class StudentSemestersComponent implements OnInit, AfterViewInit {
 
   noviSemestar() {
-    alert('Ovo je ZADATAK B');
+
+    this.router.navigate(['/admin/students', this.studentId , 'semesters' , 'new']);
+
   }
 
   displayedColumns: string[] = ['academicYear', 'studyYear', 'enrollmentDate', 'isRenewal','tuitionFee','actions'];

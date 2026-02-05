@@ -54,7 +54,7 @@ public class SemesterUpdateOrInsertEndpoint(ApplicationDbContext db, IMyAuthServ
 
         if (db.SemestersAll.ToList().Exists(x => x.StudentId == studentId && x.AcademicYearId == request.AcademicYearId))
         {
-            throw new InvalidOperationException("Academic Year already exists");
+            throw new InvalidOperationException("Academic Year already exists..");
         }
 
         // Set common properties for both insert and update
